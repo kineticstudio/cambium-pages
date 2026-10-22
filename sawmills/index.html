@@ -1,0 +1,1574 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Sawmills | Cambium (design preview v3)</title>
+<meta name="description" content="Design preview of the sawmills page as a static page: Theo's October copy and layout, the supply network map and three case studies.">
+<link rel="preconnect" href="https://cdn.prod.website-files.com" crossorigin>
+<style>
+/* =====================================================================
+   Fonts: served from the live Webflow CDN
+   ===================================================================== */
+@font-face{font-family:"Abc Social";src:url("https://cdn.prod.website-files.com/6a0d7934c77e30ed0675626d/6a0d9233617b874fbda74361_ABCSocial-Regular.woff2") format("woff2");font-weight:400;font-style:normal;font-display:swap}
+@font-face{font-family:"Abc Social";src:url("https://cdn.prod.website-files.com/6a0d7934c77e30ed0675626d/6a16bf10f21a2312bacb4e5f_ABCSocial-Bold.woff2") format("woff2");font-weight:700;font-style:normal;font-display:swap}
+@font-face{font-family:"Abc Social Mono";src:url("https://cdn.prod.website-files.com/6a0d7934c77e30ed0675626d/6a0d923bc270267cafea8968_ABCSocialMono-Medium.woff2") format("woff2");font-weight:500;font-style:normal;font-display:swap}
+
+/* =====================================================================
+   Tokens, copied from cambium.com's Webflow variables
+   (swatches, type scale, spacing all use the site's own clamp values)
+   ===================================================================== */
+:root{
+  --orange:#d65b19; --orange-dark:#af4111; --orange-mid:#f4ab8c; --orange-light:#f6dbd0;
+  --brown-dark:#261107; --brown:#412a20; --brown-mid:#634c43; --brown-light:#a08a7c;
+  --cream:#fffcf6; --cream-mid:#faf2e6; --cream-dark:#e3d5c5;
+  --blue:#b9e4f8; --blue-light:#f5fcff; --blue-mid:#dbf3ff; --blue-dark:#99cfea;
+  --brown-o10:rgba(65,42,32,.1); --brown-o30:rgba(65,42,32,.3); --brown-o70:rgba(65,42,32,.7);
+  --cream-o10:rgba(255,252,246,.1); --cream-o30:rgba(255,252,246,.3); --cream-o70:rgba(255,252,246,.7);
+
+  --font-sans:"Abc Social",Arial,sans-serif;
+  --font-mono:"Abc Social Mono",Arial,sans-serif;
+
+  --fs-display:clamp(3rem,2.5917rem + 2.0414vw,5.858rem);
+  --fs-h1:clamp(2.5rem,2.2959rem + 1.0207vw,3.929rem);
+  --fs-h2:clamp(2rem,1.8981rem + .5093vw,2.713rem);
+  --fs-h3:clamp(1.25rem,1.1989rem + .2557vw,1.608rem);
+  --fs-h4:clamp(1rem,.9489rem + .2557vw,1.358rem);
+  --fs-h5:1rem; --fs-h6:.75rem;
+  --fs-main:1.125rem; --fs-large:1.5rem; --fs-small:.875rem;
+  --lh-s:1.05; --lh-m:1.2; --lh-l:1.35; --lh-xl:1.4;
+  --ls-tightest:-.04em; --ls-tighter:-.02em; --ls-tight:-.01em; --ls-wide:.04em;
+
+  --space-0-5:clamp(.375rem,.3494rem + .1279vw,.554rem);
+  --space-0-75:clamp(.625rem,.5994rem + .1279vw,.804rem);
+  --space-1:clamp(.875rem,.8494rem + .1279vw,1.054rem);
+  --space-1-5:clamp(1.25rem,1.1989rem + .2557vw,1.608rem);
+  --space-2:clamp(1.75rem,1.6989rem + .2557vw,2.108rem);
+  --space-2-5:clamp(2.25rem,2.1989rem + .2557vw,2.608rem);
+  --space-3:clamp(2.5rem,2.3981rem + .5093vw,3.213rem);
+  --space-4:clamp(3rem,2.7959rem + 1.0207vw,4.429rem);
+  --space-5:clamp(3.5rem,3.194rem + 1.53vw,5.642rem);
+  --section-small:clamp(2.5rem,2.3981rem + .5093vw,3.213rem);
+  --section-main:clamp(3rem,2.3876rem + 3.0621vw,7.287rem);
+  --section-large:clamp(4.5rem,3.5816rem + 4.5921vw,10.929rem);
+  --page-top:clamp(8rem,7.1839rem + 4.0807vw,13.713rem);
+  --margin:clamp(1rem,.8981rem + .5093vw,1.713rem);
+  --gutter:clamp(1rem,.8981rem + .5093vw,1.713rem);
+  --nav-h:clamp(3.5rem,3.2959rem + 1.0207vw,4.929rem);
+  --btn-h:clamp(3rem,2.8929rem + .5357vw,3.75rem);
+  --radius-sm:.375rem; --radius:.75rem; --radius-round:100vw;
+  --ease:cubic-bezier(.38,.005,.215,1);
+}
+
+/* Fluid root size, same formula as the site's app.css */
+html{--value:12;--design-width:1440;--design-height:1080;--vw-ratio:1;--vh-ratio:0;--min-font-size:10px;--max-font-size:16px;
+  font-size:clamp(var(--min-font-size),calc(((100vw/var(--design-width)*(var(--value)*var(--vw-ratio))) + (1 - var(--vw-ratio))*(var(--value)*1px)) + ((100vh/var(--design-height)*(var(--value)*var(--vh-ratio))) + (1 - var(--vh-ratio))*(var(--value)*1px))/2),var(--max-font-size));
+  -webkit-text-size-adjust:100%}
+@media (max-width:768px){html{--value:10;--design-width:390;--design-height:844;--vw-ratio:.9;--vh-ratio:.9}}
+
+*,*::before,*::after{box-sizing:border-box}
+body{margin:0;background:var(--cream);color:var(--brown);font-family:var(--font-sans);font-size:var(--fs-main);
+  line-height:var(--lh-xl);letter-spacing:var(--ls-tight);-webkit-font-smoothing:antialiased;overflow-x:hidden}
+img{display:block;max-width:100%}
+a{color:inherit}
+h1,h2,h3,h4,p{margin:0;font-weight:400}
+button{font:inherit;color:inherit}
+.container{width:100%;max-width:160rem;margin:0 auto;padding:0 var(--margin)}
+.grid{display:grid;grid-template-columns:repeat(12,minmax(0,1fr));column-gap:var(--gutter)}
+.sr-only{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0}
+.eyebrow{display:flex;align-items:center;gap:.75rem;font-family:var(--font-mono);font-weight:500;font-size:var(--fs-h5);
+  line-height:1.2;letter-spacing:var(--ls-wide);text-transform:uppercase}
+.eyebrow::before{content:"";flex:none;width:.5rem;height:.5rem;border-radius:50%;background:currentColor}
+.h-sec{font-size:var(--fs-h1);line-height:var(--lh-s);letter-spacing:var(--ls-tightest)}
+.mono{font-family:var(--font-mono);font-weight:500;letter-spacing:var(--ls-wide);text-transform:uppercase}
+
+/* Buttons: the site's rolling label hover */
+.btn{position:relative;display:inline-flex;align-items:center;justify-content:center;height:var(--btn-h);padding:0 1rem;
+  border-radius:var(--radius-sm);border:1px solid transparent;font-size:var(--fs-main);letter-spacing:var(--ls-tight);
+  text-decoration:none;white-space:nowrap;cursor:pointer;
+  transition:background-color .45s var(--ease),color .45s var(--ease),border-color .45s var(--ease)}
+.btn__label{position:relative;display:block;overflow:hidden;line-height:1.25}
+.btn__label>span{display:block;transition:transform .55s var(--ease)}
+.btn__label>span::after{content:attr(data-label);position:absolute;left:0;top:100%}
+.btn:hover .btn__label>span{transform:translateY(-100%)}
+.btn:focus-visible{outline:2px solid var(--orange);outline-offset:3px}
+.btn--primary{background:var(--orange);color:var(--cream)}
+.btn--primary:hover{background:var(--orange-dark)}
+.btn--secondary{background:transparent;border-color:currentColor}
+.on-dark .btn--secondary{color:var(--cream);border-color:var(--cream-o30)}
+.on-dark .btn--secondary:hover{background:var(--cream);color:var(--brown);border-color:var(--cream)}
+.btn-row{display:flex;flex-wrap:wrap;gap:.5rem}
+
+/* =====================================================================
+   Nav (floating pills; flips light/dark with the section beneath it)
+   ===================================================================== */
+.nav{position:fixed;top:var(--space-0-75);left:0;right:0;z-index:60;pointer-events:none;
+  --nav-bg:var(--cream-mid);--nav-ink:var(--brown);--nav-hover:var(--cream-dark)}
+.nav[data-nav="dark"]{--nav-bg:var(--brown);--nav-ink:var(--cream);--nav-hover:var(--brown-mid)}
+.nav__row{display:flex;justify-content:center;gap:3px;height:var(--nav-h);padding:0 var(--margin)}
+.nav__logo,.nav__links,.nav__cta,.nav__menu{pointer-events:auto;border-radius:var(--radius-sm);
+  transition:background-color .4s var(--ease),color .4s var(--ease)}
+.nav__logo{display:flex;align-items:center;padding:0 var(--space-1-5);background:var(--nav-bg);color:var(--nav-ink)}
+.nav__logo svg{width:10rem;height:auto;display:block}
+.nav__links{display:flex;align-items:stretch;padding:var(--space-0-75);background:var(--nav-bg)}
+.nav__links a{display:flex;align-items:center;gap:.4rem;padding:0 var(--space-1);border-radius:var(--radius-sm);
+  font-family:var(--font-mono);font-weight:500;font-size:var(--fs-h5);letter-spacing:var(--ls-wide);text-transform:uppercase;
+  color:var(--nav-ink);text-decoration:none;transition:background-color .3s var(--ease),color .4s var(--ease)}
+.nav__links a:hover{background:var(--nav-hover)}
+.nav__links svg{width:.7rem;height:.7rem}
+.nav__cta{display:flex;align-items:center;padding:0 var(--space-1-5);background:var(--orange);color:var(--cream);
+  font-family:var(--font-mono);font-weight:500;font-size:var(--fs-h5);letter-spacing:var(--ls-wide);text-transform:uppercase;text-decoration:none}
+.nav__cta:hover{background:var(--orange-dark)}
+.nav__menu{display:none;align-items:center;justify-content:center;width:var(--nav-h);background:var(--nav-bg);color:var(--nav-ink);border:0}
+.nav__crumb{display:flex;justify-content:center;margin-top:.75rem}
+.nav__crumb button{pointer-events:auto;display:flex;align-items:center;gap:1.75rem;border:0;cursor:pointer;
+  background:var(--cream-dark);color:var(--brown);border-radius:var(--radius-sm);padding:.3rem .7rem;
+  font-family:var(--font-mono);font-weight:500;font-size:var(--fs-h6);letter-spacing:var(--ls-wide);text-transform:uppercase}
+.nav__crumb svg{width:.6rem;height:.6rem}
+@media (max-width:991px){
+  .nav__links,.nav__cta{display:none}
+  .nav__menu{display:flex}
+  .nav__logo{flex:1}
+}
+
+/* =====================================================================
+   Hero
+   ===================================================================== */
+.hero__visual{width:100%;height:calc(var(--space-0-75) + var(--nav-h) + 3rem + var(--space-1-5));overflow:hidden;background:var(--brown)}
+.hero__visual img{width:100%;height:100%;object-fit:cover}
+.hero__body{padding:var(--space-4) 0 var(--space-3)}
+.hero__title{grid-column:1/span 7;text-wrap:balance;font-size:var(--fs-h1);line-height:var(--lh-s);letter-spacing:var(--ls-tightest)}
+.hero__side{grid-column:9/span 4}
+.hero__side p{margin-bottom:var(--space-2-5)}
+@media (max-width:767px){
+  .hero__title,.hero__side{grid-column:1/-1}
+  .hero__side{margin-top:var(--space-2)}
+}
+
+/* =====================================================================
+   What we do
+   ===================================================================== */
+.what{background:var(--brown);color:var(--cream);padding:var(--section-main) 0}
+.what .h-sec{margin-bottom:var(--space-4)}
+.what__grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));column-gap:var(--gutter);row-gap:var(--space-3)}
+.what__card{border-left:1px solid var(--cream-o30);padding-left:var(--space-1-5)}
+.what__card img{width:2.875rem;height:2.875rem;margin-bottom:var(--space-3)}
+.what__card h3{font-size:var(--fs-h3);line-height:var(--lh-l);letter-spacing:var(--ls-tighter);margin-bottom:var(--space-1)}
+.what__card p{color:var(--cream-o70)}
+.what__card .what__lead{color:var(--cream);margin-bottom:var(--space-1)}
+@media (max-width:767px){.what__grid{grid-template-columns:1fr}}
+
+/* =====================================================================
+   NEW: National supply network
+   A dot-matrix map on the section itself, no frame. Glass UI borrows
+   the homepage hero tooltips 1:1.
+   ===================================================================== */
+.net{--ease-out:cubic-bezier(.22,1,.36,1);background:var(--brown-dark);color:var(--cream);padding:var(--section-main) 0;overflow:hidden}
+.net-head{align-items:end;row-gap:var(--space-2);margin-bottom:var(--space-3)}
+.net-head__main{grid-column:1/span 8}
+.net-head__main .eyebrow{color:var(--orange);margin-bottom:var(--space-1-5)}
+.net-head__main h2{max-width:17em;text-wrap:balance}
+.net-head__side{grid-column:9/span 4}
+.net-head__side p{color:var(--cream-o70);margin-bottom:var(--space-2)}
+@media (max-width:991px){.net-head__main,.net-head__side{grid-column:1/-1}}
+
+.net-map{position:relative;container-type:inline-size}
+.net-stage{position:relative;container-type:inline-size;width:100%;max-width:min(100%,150vh);aspect-ratio:960/520;margin:0 auto;
+  -webkit-user-select:none;user-select:none;-webkit-tap-highlight-color:transparent;touch-action:manipulation}
+.net-dots,.net-svg,.net-layer{position:absolute;inset:0;width:100%;height:100%;display:block}
+.net-svg{overflow:visible;pointer-events:none}
+.net-layer{pointer-events:none}
+.net-layer>*{pointer-events:auto}
+.net-fallback{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;color:var(--cream-o70);font-size:var(--fs-small)}
+
+/* Glass: the homepage hero tooltip */
+.glass{background:rgba(255,255,255,.08);-webkit-backdrop-filter:blur(12px) saturate(1.4);backdrop-filter:blur(12px) saturate(1.4);
+  box-shadow:-13px 15px 40px rgba(0,0,0,.25);border-radius:var(--radius);color:#fff}
+.glass::before,.glass::after{content:"";position:absolute;inset:0;border-radius:inherit;pointer-events:none}
+.glass::before{box-shadow:inset 0 1px .5px rgba(255,255,255,.55),inset 0 3px 8px -4px rgba(255,255,255,.45)}
+.glass::after{box-shadow:inset 0 -1px .5px rgba(255,255,255,.18)}
+@keyframes glass-float{0%,100%{translate:0 0}50%{translate:0 -5px}}
+@keyframes net-spin{to{transform:rotate(360deg)}}
+
+/* Status pill (the "Evaluating 380+ sources" pill from the homepage) */
+.net-status{position:absolute;left:0;top:0;z-index:8;display:flex;align-items:center;gap:var(--space-0-75);min-height:var(--space-2-5);
+  padding:var(--space-0-75) var(--space-1);font-family:var(--font-mono);font-weight:500;font-size:clamp(.75rem,1.05cqw,1rem);line-height:1.2;
+  letter-spacing:var(--ls-wide);text-transform:uppercase;white-space:nowrap;animation:glass-float 4s ease-in-out infinite;
+  transition:opacity .6s var(--ease) .2s}
+.net-status svg{flex:none;width:1.45em;height:1.45em;animation:net-spin 1s linear infinite}
+
+/* Regional hubs: glass pills sitting on the map */
+.hub{position:absolute;left:var(--x);top:var(--y);z-index:4;translate:-50% -50%;display:flex;align-items:center;gap:.6em;
+  padding:.45em 1em .45em .45em;border:0;cursor:pointer;font-family:var(--font-mono);font-weight:500;font-size:clamp(.6875rem,.95cqw,.875rem);
+  line-height:1;letter-spacing:.06em;text-transform:uppercase;box-shadow:-10px 12px 30px rgba(0,0,0,.35);
+  transition:background-color .3s var(--ease),opacity .35s var(--ease),scale .7s cubic-bezier(.34,1.56,.64,1) var(--d,0s)}
+.hub__mark{position:relative;display:grid;place-items:center;width:2.1em;height:2.1em;border-radius:50%;background:var(--blue);color:var(--brown);
+  transition:background-color .3s var(--ease),color .3s var(--ease)}
+.hub__mark svg{width:1.3em;height:1.3em;fill:none;stroke:currentColor;stroke-width:1.7;stroke-linecap:round;stroke-linejoin:round}
+.hub__mark::after{content:"";position:absolute;inset:0;border-radius:50%;border:1px solid var(--blue);opacity:0;
+  animation:hub-pulse 3s var(--ease) infinite;animation-delay:calc(var(--i) * .75s)}
+@keyframes hub-pulse{0%{transform:scale(1);opacity:.85}70%,100%{transform:scale(2.5);opacity:0}}
+.hub:hover{background:rgba(255,255,255,.16)}
+.hub[aria-expanded="true"]{background:var(--orange)}
+.hub[aria-expanded="true"] .hub__mark{background:var(--cream);color:var(--orange)}
+.net-layer.has-open .hub:not([aria-expanded="true"]){opacity:.4}
+.net-layer.has-open .hub__mark::after{animation:none}
+.hub:focus-visible{outline:2px solid var(--cream);outline-offset:3px}
+.net-map.pre .hub{opacity:0;scale:.5}
+.net-map.is-compact .hub{padding:.3em;gap:0;font-size:.6875rem;border-radius:50%}
+.net-map.is-compact .hub__name{position:absolute;left:50%;top:calc(100% + .45em);translate:-50% 0;font-size:.5625rem;letter-spacing:.08em;color:var(--cream-o70);transition:opacity .2s}
+.net-map.is-compact .hub[aria-expanded="true"] .hub__name{opacity:0}
+
+/* Sawmills + programs */
+.pin{--dl:0s;position:absolute;left:var(--x);top:var(--y);z-index:3;translate:-50% -50%;display:grid;place-items:center;
+  width:clamp(1.5rem,2.35cqw,2.125rem);aspect-ratio:1;padding:0;border:0;border-radius:50%;cursor:pointer;
+  background:var(--cream);color:var(--brown-mid);box-shadow:0 8px 18px -8px rgba(0,0,0,.8);
+  transition:left .6s var(--ease-out) var(--dl),top .6s var(--ease-out) var(--dl),opacity .35s var(--ease) var(--dl),
+    scale .35s cubic-bezier(.34,1.56,.64,1),background-color .2s var(--ease),color .2s var(--ease)}
+.pin--program{color:var(--brown-dark)}
+.pin svg{width:56%;height:56%;fill:none;stroke:currentColor;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
+.pin:hover,.pin.is-active{background:var(--orange);color:var(--cream);scale:1.15}
+.pin.is-dim{opacity:.32}
+.pin.is-out,.pin.is-gone{opacity:0;scale:.4;pointer-events:none}
+.pin.is-gone{--dl:0s}
+.pin:focus-visible{outline:2px solid var(--cream);outline-offset:3px}
+
+/* Spokes + connectors: a faint line plus a pulse of light moving along it.
+   Sawmill spokes flow into the hub, program spokes flow out to the program. */
+.ln-base{fill:none;stroke:#fffcf6;stroke-opacity:.2;stroke-width:1;vector-effect:non-scaling-stroke;stroke-dasharray:100;stroke-dashoffset:100;
+  transition:stroke-dashoffset .6s var(--ease-out)}
+.ln-flow{fill:none;stroke:#fffcf6;stroke-opacity:.9;stroke-width:1.6;vector-effect:non-scaling-stroke;stroke-linecap:round;stroke-dasharray:8 92;
+  opacity:0;transition:opacity .3s var(--ease)}
+.is-in>.ln-base{stroke-dashoffset:0}
+.is-in>.ln-flow{opacity:1;transition-delay:.45s}
+.spoke--sawmill .ln-flow{animation:flow-in 2.4s linear infinite;animation-delay:var(--fd,0s)}
+.spoke--program .ln-flow,.conn .ln-flow{animation:flow-out 2.4s linear infinite;animation-delay:var(--fd,0s)}
+.conn .ln-flow{animation-duration:1.6s}
+.spoke{transition:opacity .25s var(--ease)}
+.spoke.is-dim{opacity:.25}
+.is-gone>.ln-base{stroke-dashoffset:100;transition-duration:.4s}
+.is-gone>.ln-flow{opacity:0;transition-delay:0s}
+@keyframes flow-out{from{stroke-dashoffset:100}to{stroke-dashoffset:0}}
+@keyframes flow-in{from{stroke-dashoffset:0}to{stroke-dashoffset:100}}
+
+/* Species names, field-guide style in the margins */
+.splab{pointer-events:all;cursor:pointer;transition:opacity .5s var(--ease) var(--d,0s)}
+.splab text{font-family:var(--font-mono);font-weight:500;font-size:9.5px;letter-spacing:.07em;text-transform:uppercase;fill:rgba(255,252,246,.62);transition:fill .2s var(--ease)}
+.splab .ldr{fill:none;stroke:rgba(255,252,246,.16);stroke-width:.7;transition:stroke .2s var(--ease)}
+.splab .anch{fill:var(--blue)}
+.splab .hit{fill:transparent}
+.splab:hover text,.splab.lit text{fill:var(--orange)}
+.splab.lit .ldr{stroke:var(--orange)}
+.splab.lit .anch{fill:var(--orange)}
+.splab.off{opacity:.2}
+.net-svg.is-back .splab{opacity:0;pointer-events:none}
+.net-map.pre .splab,.net-map.pre .net-status{opacity:0}
+.net-map.settled .splab,.net-map.settled .hub{--d:0s !important}
+
+/* Detail tooltip: homepage hero tooltip with a checklist */
+.net-tip{position:absolute;left:0;top:0;z-index:9;display:flex;flex-direction:column;gap:var(--space-1);width:max-content;min-width:15rem;max-width:19rem;
+  padding:var(--space-1);pointer-events:none;opacity:0;visibility:hidden;translate:0 6px;
+  transition:opacity .25s var(--ease),translate .45s var(--ease),visibility 0s linear .25s}
+.net-tip.is-shown{opacity:1;visibility:visible;translate:0 0;transition:opacity .25s var(--ease),translate .45s var(--ease),visibility 0s;
+  animation:glass-float 4s ease-in-out .5s infinite}
+.tip-title{display:flex;align-items:center;gap:.6em;margin:0;font-family:var(--font-mono);font-weight:500;font-size:var(--fs-h5);line-height:1.2;letter-spacing:var(--ls-wide);text-transform:uppercase}
+.tip-title svg{flex:none;width:1.2em;height:1.2em;fill:none;stroke:var(--blue);stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
+.checks{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:.85em}
+.checks li{padding-left:1.35em;font-size:var(--fs-small);line-height:1.3;letter-spacing:var(--ls-tight);
+  background:url("https://cdn.prod.website-files.com/6a0d7934c77e30ed0675626d/6a4f1ab6d8ef379fa41d9fcd_check.svg") no-repeat 0 .22em/.875em auto}
+.checks li.is-no{background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 10 10'%3E%3Ccircle cx='5' cy='5' r='3.1' fill='none' stroke='%23A08A7C' stroke-width='1.3'/%3E%3C/svg%3E");color:rgba(255,255,255,.7)}
+.net-tip .checks li{opacity:0;translate:-4px 0;transition:opacity .3s var(--ease),translate .45s var(--ease)}
+.net-tip.is-shown .checks li{opacity:1;translate:0 0}
+.net-tip.is-shown .checks li:nth-child(2){transition-delay:.06s}
+.net-tip.is-shown .checks li:nth-child(3){transition-delay:.12s}
+.net-tip.is-shown .checks li:nth-child(4){transition-delay:.18s}
+
+/* Species under the cursor */
+.net-peek{position:absolute;left:0;top:0;z-index:7;padding:.55em .8em;font-family:var(--font-mono);font-weight:500;font-size:.6875rem;line-height:1.1;
+  letter-spacing:.06em;text-transform:uppercase;white-space:nowrap;pointer-events:none;opacity:0;transition:opacity .2s var(--ease)}
+.net-peek.is-shown{opacity:1}
+
+/* Phones: region tabs + swipeable glass cards under the map */
+.net-regions{display:none}
+.net-map.is-compact .net-status{position:relative;display:inline-flex;margin-bottom:var(--space-1)}
+.net-map.is-compact .net-regions{display:block;margin-top:var(--space-1-5)}
+.net-tabs{display:flex;gap:.4rem;overflow-x:auto;scrollbar-width:none;margin:0 calc(var(--margin) * -1) var(--space-1);padding:.25rem var(--margin)}
+.net-tabs::-webkit-scrollbar{display:none}
+.net-tab{flex:none;display:flex;align-items:center;gap:.45rem;min-height:2.75rem;padding:0 1rem;border:0;border-radius:var(--radius);cursor:pointer;position:relative;
+  font-family:var(--font-mono);font-weight:500;font-size:.75rem;letter-spacing:var(--ls-wide);text-transform:uppercase;color:#fff;transition:background-color .25s var(--ease)}
+.net-tab b{font-weight:500;color:rgba(255,255,255,.6)}
+.net-tab[aria-selected="true"]{background:var(--orange)}
+.net-tab[aria-selected="true"] b{color:var(--cream)}
+.net-cards{display:flex;align-items:flex-start;gap:.6rem;overflow-x:auto;scroll-snap-type:x mandatory;scrollbar-width:none;margin:0 calc(var(--margin) * -1);padding:.25rem var(--margin) 1.25rem;scroll-padding:0 var(--margin)}
+.net-cards::-webkit-scrollbar{display:none}
+.nc{position:relative;flex:0 0 min(80%,17.5rem);scroll-snap-align:start;display:flex;flex-direction:column;gap:var(--space-1);padding:var(--space-1);
+  box-shadow:-8px 10px 26px rgba(0,0,0,.3);transition:background-color .3s var(--ease)}
+.nc.flash{background:rgba(214,91,25,.28)}
+.net-empty{color:var(--cream-o70);font-size:var(--fs-small);padding:.25rem 0 1rem}
+.net-sub{margin:var(--space-0-75) 0 .6rem;font-family:var(--font-mono);font-weight:500;font-size:.6875rem;letter-spacing:.07em;text-transform:uppercase;color:var(--brown-light)}
+.net-chips{display:flex;gap:.35rem;overflow-x:auto;scrollbar-width:none;margin:0 calc(var(--margin) * -1);padding:0 var(--margin) .25rem}
+.net-chips::-webkit-scrollbar{display:none}
+.net-chip{flex:none}
+.net-chip{min-height:2.25rem;padding:0 .75rem;border:1px solid var(--cream-o10);border-radius:var(--radius);background:transparent;cursor:pointer;
+  font-family:var(--font-mono);font-weight:500;font-size:.6875rem;letter-spacing:.05em;text-transform:uppercase;color:var(--cream-o70);
+  transition:border-color .2s var(--ease),color .2s var(--ease)}
+.net-chip[aria-pressed="true"]{border-color:var(--orange);color:var(--orange)}
+
+/* =====================================================================
+   Case studies
+   ===================================================================== */
+.cases{background:var(--cream-mid);padding:var(--section-main) 0}
+.cases .h-sec{margin-bottom:var(--space-4)}
+.cases__row{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:var(--gutter)}
+.case__media{overflow:hidden;border-radius:var(--radius-sm);margin-bottom:var(--space-1-5)}
+.case__media img{width:100%;aspect-ratio:4/3;object-fit:cover}
+.case__meta{font-family:var(--font-mono);font-weight:500;font-size:.75rem;letter-spacing:var(--ls-wide);text-transform:uppercase;color:var(--brown-o70);margin-bottom:.6rem}
+.case h3{font-size:var(--fs-h3);line-height:var(--lh-l);letter-spacing:var(--ls-tighter);margin-bottom:var(--space-1)}
+.case p{color:var(--brown-o70)}
+@media (max-width:991px){.cases__row{grid-template-columns:1fr;row-gap:var(--space-3)}}
+
+/* =====================================================================
+   Logos (moved to the bottom per the layout Loom)
+   ===================================================================== */
+.logos{position:relative;background:var(--cream-mid);padding:var(--section-small) 0;border-top:1px solid var(--brown-o30);border-bottom:1px solid var(--brown-o30);overflow:hidden}
+.logos__grain{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:.55}
+.logos .container{position:relative}
+.logos h2{text-align:center;font-family:var(--font-mono);font-weight:500;font-size:var(--fs-h5);letter-spacing:var(--ls-wide);text-transform:uppercase;margin-bottom:var(--space-1-5)}
+.logos__grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:2px}
+.logos__tile{display:flex;align-items:center;justify-content:center;height:5rem;background:var(--cream);border-radius:var(--radius-sm)}
+.logos__tile img{max-width:min(12rem,70%);max-height:2.6rem;object-fit:contain}
+@media (max-width:640px){.logos__grid{grid-template-columns:repeat(2,minmax(0,1fr))}}
+
+/* =====================================================================
+   CTA + footer
+   ===================================================================== */
+.foot{background:var(--brown);color:var(--cream);padding:var(--space-4) 0 var(--space-2)}
+.foot__top{row-gap:var(--space-3)}
+.foot__mark{grid-column:1/span 2;width:3.4rem;color:var(--blue)}
+.foot__col{grid-column:span 2}
+.foot__col h2{font-family:var(--font-mono);font-weight:500;font-size:var(--fs-h5);letter-spacing:var(--ls-wide);text-transform:uppercase;color:var(--blue);margin-bottom:.9rem}
+.foot__col h2+ul+h2{margin-top:1.5rem}
+.foot__col ul{list-style:none;margin:0;padding:0;display:grid;gap:.35rem}
+.foot__col a{text-decoration:none;color:var(--cream-o70)}
+.foot__col a:hover{color:var(--cream)}
+.foot__quote{grid-column:span 2;justify-self:end}
+.foot__mid{display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:var(--space-1-5);margin-top:var(--space-4);padding-top:var(--space-2);border-top:1px solid var(--cream-o30)}
+.foot__news{display:flex;align-items:center;gap:var(--space-1-5);flex-wrap:wrap}
+.foot__news h2{font-family:var(--font-mono);font-weight:500;font-size:var(--fs-h5);letter-spacing:var(--ls-wide);text-transform:uppercase;max-width:9rem;line-height:1.2}
+.foot__news form{display:flex;gap:3px}
+.foot__news input{height:var(--btn-h);width:min(22rem,60vw);padding:0 1rem;border:0;border-radius:var(--radius-sm);background:var(--cream-o10);color:var(--cream);font:inherit}
+.foot__news input::placeholder{color:var(--cream-o70)}
+.foot__news button{width:var(--btn-h);height:var(--btn-h);border:0;border-radius:var(--radius-sm);background:var(--cream-o10);color:var(--cream);cursor:pointer}
+.foot__social{display:flex;gap:1.25rem;font-family:var(--font-mono);font-weight:500;font-size:.75rem;letter-spacing:var(--ls-wide);text-transform:uppercase}
+.foot__social a{text-decoration:none;color:var(--cream-o70)}
+.foot__legal{display:flex;justify-content:space-between;margin-top:var(--space-2);font-size:var(--fs-small);color:var(--cream-o70)}
+@media (max-width:991px){.foot__mark{grid-column:1/-1}.foot__col{grid-column:span 6}.foot__quote{grid-column:1/-1;justify-self:start}}
+
+@media (prefers-reduced-motion:reduce){
+  *,*::before,*::after{transition-duration:.01ms !important;animation:none !important}
+}
+</style>
+</head>
+<body>
+
+<!-- ===================================================================
+     NAV
+     =================================================================== -->
+<header class="nav" id="nav" data-nav="light" data-net-avoid>
+  <div class="nav__row">
+    <a class="nav__logo" href="https://www.cambium.com" aria-label="Cambium home">
+      <svg viewBox="0 0 218 32" fill="currentColor" aria-hidden="true"><path d="M99.3212 30.94C97.8804 30.94 96.4814 30.9814 95.2536 31.0642C95.5084 28.493 95.5543 26.1412 95.3789 23.45L94.5771 10.7886C94.5311 9.94393 94.4518 8.68525 94.4518 7.67913L92.8481 11.5504L86.5421 26.104C85.8155 27.8305 85.2726 29.5115 84.9719 31.4037C84.3413 31.3623 83.4893 31.3623 82.7335 31.3623C82.0527 31.3623 81.418 31.4037 80.6621 31.4492C80.495 30.3065 80.0315 28.878 79.4343 27.4951L72.7065 11.8113C72.1928 10.6395 71.5622 9.12413 71.2657 8.19254C71.2198 9.07859 71.1488 10.4201 71.0527 11.3475L70.1632 23.922C70.0379 25.9839 70.0755 29.0105 70.6309 31.0725C69.875 31.0269 68.8143 31.0269 67.716 31.0269C66.7471 31.0269 65.7699 31.0269 65.014 31.0725C65.5569 29.0934 65.9828 26.369 66.1958 23.806L67.4236 9.30217C67.5447 6.8676 67.6784 4.34195 67.2983 1.82458C68.2672 1.87012 70.3511 1.87012 71.4119 1.87012C73.1074 1.87012 74.4229 1.82458 75.8553 1.74591C76.1936 3.30271 76.7949 4.81396 77.4255 6.32521L83.0508 20.1169L84.1074 23.0608C84.4457 22.1292 84.8341 21.2555 85.2517 20.237L91.0106 6.78066C91.6913 5.1866 92.0254 4.20946 92.6644 1.73349C94.268 1.82044 95.4916 1.8577 96.9909 1.8577C98.3064 1.8577 99.9059 1.8577 100.921 1.8163C100.708 3.79542 100.795 5.34807 100.875 7.28579L101.718 23.1767C101.885 26.4104 102.261 28.9443 103.076 31.0766C102.019 30.9897 100.662 30.9524 99.3504 30.9524H99.317L99.3212 30.94Z"/><path d="M143.237 1.76669C142.899 4.76021 142.811 7.02502 142.811 9.63762V23.1395C142.811 26.9694 143.112 29.4951 143.655 31.085C142.715 30.998 141.116 30.9608 139.842 30.9608C138.401 30.9608 136.969 31.0022 135.862 31.085C136.288 28.7249 136.405 25.9509 136.405 23.0981V9.89433C136.405 7.74545 136.318 3.67542 135.562 1.78326C137.002 1.8702 137.725 1.8702 139.203 1.8702C140.899 1.8702 142.043 1.8702 143.221 1.78326V1.77083H143.233L143.237 1.76669Z"/><path d="M156.785 1.76669C156.447 4.92169 156.405 7.44734 156.405 9.63762V17.9184C156.405 21.7028 156.493 22.9201 156.998 24.4355C157.842 26.8369 160.126 28.3068 163.304 28.3068C166.482 28.3068 168.855 27.135 170.032 24.4355C170.621 23.0815 170.788 20.44 170.788 17.4092V9.42232C170.788 6.47848 170.575 3.99838 169.773 1.8081C170.575 1.8495 171.59 1.89505 172.647 1.89505C173.791 1.89505 175.019 1.85364 176.033 1.8081C175.607 4.45382 175.49 6.17623 175.49 9.75355V21.3674C175.49 27.843 170.834 32 162.582 32C156.276 32 150.003 30.0623 150.003 21.7401V9.88605C150.003 7.73717 149.916 3.66714 149.16 1.77497C150.6 1.86192 151.361 1.86192 152.847 1.86192C154.589 1.86192 155.645 1.86192 156.777 1.77497H156.79L156.785 1.76669Z"/><path d="M214.246 30.94C212.805 30.94 211.418 30.9814 210.178 31.0642C210.433 28.493 210.479 26.1412 210.303 23.45L209.501 10.7886C209.456 9.94393 209.376 8.68525 209.376 7.67913L207.773 11.5504L201.467 26.104C200.74 27.8305 200.197 29.5115 199.896 31.4037C199.266 31.3623 198.414 31.3623 197.658 31.3623C196.977 31.3623 196.342 31.4037 195.586 31.4492C195.419 30.3065 194.956 28.878 194.359 27.4951L187.631 11.8113C187.117 10.6395 186.487 9.12413 186.19 8.19254C186.144 9.07859 186.065 10.4201 185.977 11.3475L185.088 23.922C184.971 25.9839 185 29.0105 185.555 31.0725C184.799 31.0269 183.743 31.0269 182.64 31.0269C181.671 31.0269 180.69 31.0269 179.938 31.0725C180.481 29.0934 180.907 26.369 181.12 23.806L182.348 9.30217C182.473 6.8676 182.603 4.34195 182.223 1.82458C183.192 1.87012 185.276 1.87012 186.336 1.87012C188.032 1.87012 189.347 1.82458 190.78 1.74591C191.118 3.30271 191.719 4.81396 192.35 6.32521L197.975 20.1169L199.032 23.0608C199.37 22.1292 199.758 21.2555 200.176 20.237L205.935 6.78066C206.616 5.1866 206.95 4.20946 207.589 1.73349C209.192 1.82044 210.429 1.8577 211.911 1.8577C213.227 1.8577 214.826 1.8577 215.841 1.8163C215.628 3.79542 215.716 5.34807 215.799 7.28579L216.643 23.1767C216.81 26.4104 217.186 28.9443 218 31.0766C216.943 30.9897 215.586 30.9524 214.275 30.9524H214.241L214.246 30.94Z"/><path d="M58.8379 23.6738L57.0714 18.7757C58.2532 18.7509 59.4852 18.7674 60.7589 18.8254L59.74 16.1383C58.4746 16.0762 57.2677 16.0637 56.1025 16.0844L52.1518 5.12476C51.5212 3.26157 51.2247 2.38794 50.97 0.831146C48.8986 1.20792 45.7247 1.49361 44.0292 1.58056C43.5155 3.55968 43.2608 4.35464 42.246 6.83889L35.3803 23.8726C34.3989 26.3941 33.263 28.6754 32.1146 30.6877L32.2858 31.0645C33.5136 30.9775 34.7456 30.9775 35.9274 30.9775C36.9422 30.9775 37.9654 31.0231 38.9384 31.0645C38.7255 30.2695 38.6378 29.723 38.6378 29.0025C38.6378 27.7852 38.9259 26.4023 39.2308 25.4708L39.3936 24.9987C41.9954 22.2122 45.6913 20.3573 50.4271 19.4299L51.1329 21.7402L52.1393 24.8497C52.9537 27.2843 53.2836 28.7086 53.4966 31.0686C54.9791 30.9816 56.683 30.9816 58.1948 30.9816C59.7065 30.9816 61.281 31.0272 62.1245 31.0686C61.3687 29.7147 59.9279 26.7005 58.8254 23.6655V23.678L58.8379 23.6738ZM41.9745 17.6412L46.1716 5.928L49.5752 16.6682C46.3637 17.2437 43.6241 18.2457 41.2604 19.6535L41.8158 18.076L41.9745 17.6371V17.6412Z"/><path d="M8.54445 30.0056C5.90928 28.6889 3.82537 26.8216 2.29689 24.3953C0.768415 21.969 0 19.1701 0 15.9903C0 13.0423 0.755888 10.3469 2.27184 7.90819C3.78779 5.46949 5.91346 3.54006 8.64885 2.12403C11.3884 0.708011 14.5205 0 18.0411 0C19.8452 0 21.8163 0.223582 23.9378 0.670747C26.0676 1.11791 27.9302 1.73069 29.5339 2.51323L30.4526 10.5332H27.83C27.3915 8.82736 26.7024 7.40306 25.7503 6.26445C24.8064 5.12169 23.6538 4.27291 22.3007 3.70567C20.9477 3.14258 19.4234 2.86103 17.7404 2.86103C15.7024 2.86103 13.8774 3.33717 12.2779 4.28947C10.6743 5.24591 9.43814 6.60396 8.56532 8.38434C7.68833 10.1606 7.25818 12.1894 7.25818 14.4749C7.25818 17.1082 7.77603 19.3647 8.81172 21.261C9.84323 23.1532 11.2715 24.6023 13.0923 25.5919C14.9131 26.5897 16.9845 27.0866 19.319 27.0866C21.6534 27.0866 23.8752 26.4283 25.7377 25.1116C27.6045 23.795 28.9283 22.027 29.7093 19.8036L32.3319 20.2798C31.718 22.6191 30.7115 24.681 29.2958 26.4573C27.8801 28.2335 26.1428 29.5998 24.0756 30.5521C22.0084 31.5086 19.7783 31.9806 17.3937 31.9806C14.1322 31.9806 11.1796 31.3222 8.54445 30.0056Z"/><path d="M113.057 31.0889C111.117 31.0889 109.264 31.0889 108.122 31.1339C108.455 28.7718 108.708 27.0429 108.708 23.1291V9.89879C108.708 7.74677 108.621 3.66784 107.866 1.77094C109.297 1.86098 110.44 1.86098 111.914 1.86098C115.375 1.86098 117.559 1.77094 121.474 1.77094C123.917 1.77094 125.601 2.19113 126.867 3.15759C128.253 4.25611 129.02 5.89789 129.02 7.95987C129.02 11.4535 126.792 13.3144 123.375 14.7461V15.0012C123.796 14.9562 124.217 14.9562 124.551 14.9562C128.557 14.9562 131.339 17.4414 131.339 21.7424C131.339 27.4301 126.446 31.1789 120.169 31.1789C117.851 31.1789 115.787 31.0889 113.048 31.0889H113.06H113.057ZM122.497 9.14544C122.497 6.15001 120.723 4.46621 117.649 4.46621C117.105 4.46621 116.007 4.51124 115.21 4.58927C115.21 5.34263 115.087 7.53967 115.087 9.68869V14.0678C115.676 14.1578 116.563 14.1578 117.15 14.1578C120.145 14.1578 122.509 12.6391 122.509 9.14544H122.497ZM124.605 22.3307C124.605 18.1617 122.286 16.73 118.705 16.73C117.529 16.73 115.92 16.7751 115.078 16.8951V23.2161C115.078 25.7013 115.201 26.8418 115.799 27.5172C116.389 28.1505 117.276 28.4476 118.84 28.4476C122.422 28.4476 124.62 26.1755 124.62 22.3367L124.608 22.3247L124.605 22.3307Z"/></svg>
+    </a>
+    <nav class="nav__links" aria-label="Main">
+      <a href="#">Materials <svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.3" aria-hidden="true"><path d="M2.5 4.5 6 8l3.5-3.5"/></svg></a>
+      <a href="#">Technology</a>
+      <a href="#">Customers <svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.3" aria-hidden="true"><path d="M2.5 4.5 6 8l3.5-3.5"/></svg></a>
+      <a href="#">Resources <svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.3" aria-hidden="true"><path d="M2.5 4.5 6 8l3.5-3.5"/></svg></a>
+      <a href="#">About us <svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.3" aria-hidden="true"><path d="M2.5 4.5 6 8l3.5-3.5"/></svg></a>
+      <a href="https://app.cambium.com">Log in</a>
+    </nav>
+    <a class="nav__cta" href="#">Contact us</a>
+    <button class="nav__menu" type="button" aria-label="Open menu"><svg width="20" height="14" viewBox="0 0 20 14" fill="none" stroke="currentColor" stroke-width="1.4" aria-hidden="true"><path d="M0 1h20M0 7h20M0 13h20"/></svg></button>
+  </div>
+  <div class="nav__crumb"><button type="button">Sawmills <svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.3" aria-hidden="true"><path d="M2.5 4.5 6 8l3.5-3.5"/></svg></button></div>
+</header>
+
+<main>
+
+<!-- ===================================================================
+     1. HERO: the lumber is a band under the nav (Theo, Oct 7 Loom)
+     =================================================================== -->
+<section class="hero">
+  <div class="hero__visual" data-theme="dark">
+    <img src="https://cdn.prod.website-files.com/6a0ee031f58f091653a51d8f/6a4fd68e6d99421b65d1f50e_IMG_0221%203.webp" alt="Stacked boards drying at a sawmill, end grain facing out">
+  </div>
+  <div class="hero__body" data-theme="light">
+    <div class="container grid">
+      <h1 class="hero__title">Connecting demand to the forest and sawmill floors</h1>
+      <div class="hero__side">
+        <p>Our supply team has spent their careers in forest products, and material already moves through our network of 220+ mills and supply partners across the country. We start with building a relationship, then we find the right opportunities to match your capacity, then we work together to develop new programs.</p>
+        <a class="btn btn--primary" href="#"><span class="btn__label"><span data-label="Get in Touch">Get in Touch</span></span></a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===================================================================
+     2. HOW TO WORK WITH US (replaces What we do, the three ways to
+        partner and the long story sections)
+     =================================================================== -->
+<section class="what on-dark" data-theme="dark">
+  <div class="container">
+    <h2 class="h-sec">How to work with us</h2>
+    <div class="what__grid">
+      <div class="what__card">
+        <img src="https://cdn.prod.website-files.com/6a0ee031f58f091653a51d8f/6a4f1e509de16a268883e3f5_sawmill--fit.svg" alt="">
+        <h3>Build a relationship</h3>
+        <p class="what__lead">Understand your mill, fiber, products, capacity and goals.</p>
+        <p>The first step is a conversation about your operation. What you share is your call. We start by learning your mill: species mix, grades, capacity, and where you're selling today. The better we understand your products, the better we can match to demand.</p>
+      </div>
+      <div class="what__card">
+        <img src="https://cdn.prod.website-files.com/6a0ee031f58f091653a51d8f/6a4f1e5207b8c872ea10db68_sawmill--demand.svg" alt="">
+        <h3>Find the right opportunities</h3>
+        <p class="what__lead">As demand develops, identify opportunities that match what you already do or could realistically do.</p>
+        <p>Cambium's goal is to connect more demand directly to the sawmill floor. We work with buyers across the country to specify and procure by species, grade, and origin. The more we understand your business, we can work together to create and capture opportunities when the right demand exists.</p>
+      </div>
+      <div class="what__card">
+        <img src="https://cdn.prod.website-files.com/6a0ee031f58f091653a51d8f/6a4f1e4d2cf0430c61e14600_sawmill--growth.svg" alt="">
+        <h3>Develop programs together</h3>
+        <p class="what__lead">Over time, use our relationship, market visibility, and customer demand to develop new opportunities.</p>
+        <p>After we've worked with each other and built a relationship, we can unlock more species, products, outlets, and supply chains together.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===================================================================
+     3. NEW SECTION: national supply network + join / log in
+        Replaces the "Local everywhere" globe.
+     =================================================================== -->
+<section class="net on-dark" id="network" data-theme="dark" aria-labelledby="net-title">
+  <div class="container">
+
+    <div class="net-head grid">
+      <div class="net-head__main">
+        <p class="eyebrow">The way wood moves</p>
+        <h2 class="h-sec" id="net-title">Join Cambium's national supply network to get involved in recurring programs</h2>
+      </div>
+      <div class="net-head__side">
+        <p>See where Cambium's partner mills and recurring programs are active today, region by region. Join to get your mill matched to the programs that fit what you already run.</p>
+        <div class="btn-row">
+          <a class="btn btn--primary" href="https://app.cambium.com"><span class="btn__label"><span data-label="Join the network">Join the network</span></span></a>
+          <a class="btn btn--secondary" href="https://app.cambium.com"><span class="btn__label"><span data-label="Log in">Log in</span></span></a>
+        </div>
+      </div>
+    </div>
+
+    <div class="net-map pre" id="net-map">
+      <div class="net-stage" id="net-stage">
+        <canvas class="net-dots" id="net-dots" aria-hidden="true"></canvas>
+        <svg class="net-svg" id="net-svg" viewBox="0 0 960 520" aria-hidden="true"></svg>
+        <div class="net-layer" id="net-layer" role="group" aria-label="Regional hubs"></div>
+        <div class="net-tip glass" id="net-tip" aria-hidden="true"></div>
+        <div class="net-peek glass" id="net-peek" aria-hidden="true"></div>
+      </div>
+      <div class="net-regions" id="net-regions"></div>
+      <div class="sr-only" id="net-sr"></div>
+    </div>
+
+  </div>
+</section>
+
+<!-- ===================================================================
+     4. CASE STUDIES (Theo's copy, Melanie's photos)
+     =================================================================== -->
+<section class="cases" data-theme="light">
+  <div class="container">
+    <h2 class="h-sec">Case studies</h2>
+    <div class="cases__row">
+      <article class="case">
+        <div class="case__media"><img loading="lazy" src="../images/case-parton.jpg" alt="A worker walking between rows of logs at Parton Lumber's yard"></div>
+        <p class="case__meta">Parton Lumber <span aria-hidden="true">&middot;</span> North Carolina</p>
+        <h3>Scaling underutilized material</h3>
+        <p>When Hurricane Helene put Southern Yellow Pine on the ground across western North Carolina, Parton Lumber had the capacity to run it, but they had shifted from softwoods years earlier. Cambium brought committed demand first, and with an outlet in place, Parton restarted the line and turned storm salvage into profitable throughput.</p>
+      </article>
+      <article class="case">
+        <div class="case__media"><img loading="lazy" src="../images/case-fritch.jpg" alt="A truck loaded with logs in a sawmill yard"></div>
+        <p class="case__meta">Fritch Mill <span aria-hidden="true">&middot;</span> Washington</p>
+        <h3>Quickly entering the Cambium supply ecosystem</h3>
+        <p>The Cambium Supply team met Fritch Mill in Washington in August. After a month of learning more about their mill, fiber, products, capacity and goals, Cambium placed its first trial load of salvaged Western Hemlock &amp; White Fir with the goal of scaling to recurring orders. By quickly understanding Fritch's species mix and capacity, we were able to more effectively match it to new demand.</p>
+      </article>
+      <article class="case">
+        <div class="case__media"><img loading="lazy" src="../images/case-lowes.jpg" alt="A butcher block countertop island in a kitchen"></div>
+        <p class="case__meta">Patrick Lumber <span aria-hidden="true">&middot;</span> Oregon</p>
+        <h3>Connecting regional materials to the market</h3>
+        <p>Cambium has worked with Patrick Lumber in Oregon for years with their salvaged Cedar and Doug Fir programs. From that relationship, we have connected their salvaged Oregon White Oak and Alder to a national butcherblock countertop product with Lowes.com, expanding awareness for underutilized regional species.</p>
+      </article>
+    </div>
+  </div>
+</section>
+
+<!-- ===================================================================
+     5. LOGOS
+     =================================================================== -->
+<section class="logos" data-theme="light">
+  <img class="logos__grain" loading="lazy" src="https://cdn.prod.website-files.com/6a0d7934c77e30ed0675626d/6a2028f5cd1745845e1df6c3_wood-grain.avif" alt="">
+  <div class="container">
+    <h2>The demand on the other side</h2>
+    <div class="logos__grid">
+      <div class="logos__tile"><img loading="lazy" src="https://cdn.prod.website-files.com/6a0ee031f58f091653a51d8f/6a3106ae22800e6f54ce6352_room%20%26%20board.svg" alt="Room &amp; Board"></div>
+      <div class="logos__tile"><img loading="lazy" src="https://cdn.prod.website-files.com/6a0ee031f58f091653a51d8f/6a3106b0e862600cc8b5e8a8_sabai.svg" alt="Sabai"></div>
+      <div class="logos__tile"><img loading="lazy" src="https://cdn.prod.website-files.com/6a0ee031f58f091653a51d8f/6a3106b351b280568ecc187d_patagonia.svg" alt="Patagonia"></div>
+      <div class="logos__tile"><img loading="lazy" src="https://cdn.prod.website-files.com/6a0ee031f58f091653a51d8f/6a3106c009649178191ddc31_equinox.svg" alt="Equinox"></div>
+      <div class="logos__tile"><img loading="lazy" src="https://cdn.prod.website-files.com/6a0ee031f58f091653a51d8f/6a59c2a08274bacdf66d9153_goldmansachs-ar21~bgwhite%201.png" alt="Goldman Sachs"></div>
+      <div class="logos__tile"><img loading="lazy" src="https://cdn.prod.website-files.com/6a0ee031f58f091653a51d8f/6a3106d13c66c335c239eb9e_national%20geographic.svg" alt="National Geographic"></div>
+    </div>
+  </div>
+</section>
+
+</main>
+
+<footer class="foot" data-theme="dark">
+  <div class="container">
+    <div class="grid foot__top">
+      <div class="foot__mark"><svg viewBox="0 0 55 64" fill="none" aria-hidden="true"><path fill="currentColor" d="M47.4373 0H7.56274C3.39189 0 0 3.40075 0 7.58249V56.4175C0 60.5993 3.39189 64 7.56274 64H47.4373C51.6081 64 55 60.5993 55 56.4175V7.58249C55 3.40075 51.6081 0 47.4373 0ZM18.3207 26.2278C19.1413 25.6781 19.9997 25.2307 20.9979 25.1966C22.242 25.1549 22.6466 26.4212 23.747 26.8117C24.4314 27.0543 25.1801 26.9937 25.9024 26.933L27.8384 36.5097C28.122 37.9162 28.2657 39.3569 28.2657 40.79V60.5045H25.8154V40.5625C25.8154 32.199 21.6067 28.131 18.3169 26.224L18.3207 26.2278ZM36.7625 31.2361C37.3145 31.2209 37.8704 31.1754 38.4225 31.1716C38.6947 31.1716 38.9746 31.1792 39.2619 31.1944L36.2179 34.3752L36.7662 31.2361H36.7625ZM33.1891 35.8652C32.879 36.7599 32.5046 37.6319 32.1152 38.5266C32.0131 38.7579 31.408 39.7209 31.4875 39.9673L30.6745 37.4347C30.6064 36.9495 30.5308 36.468 30.4325 35.9865L28.5834 26.8382C29.8236 26.9103 30.9997 27.2477 31.8089 28.3396C32.3534 29.0751 32.8336 29.6817 33.5937 30.1973C33.6504 30.239 33.9 30.3717 34.1949 30.5309C34.3197 30.5953 33.847 33.2985 33.8092 33.507C33.6655 34.3297 33.4462 35.1031 33.1853 35.8614L33.1891 35.8652ZM37.1217 37.2641C37.9536 36.3959 38.7855 35.524 39.6174 34.6558C40.7518 33.4691 41.7009 32.0133 43.1152 31.1337C44.1021 30.5195 45.4558 30.1631 46.4163 29.4011C47.6074 28.4571 47.5734 27.096 48.6133 26.1217C49.7099 25.0905 50.2279 25.3558 51.5211 24.7038V28.8969C51.1884 28.8552 50.8292 28.9234 50.5191 29.0561C50.0086 29.276 49.5775 29.6437 49.1275 29.9698C47.7171 30.9972 46.2234 31.2171 44.6731 31.8616C43.342 32.4151 42.5706 33.6852 41.7879 34.8302C40.5325 36.6727 37.1557 38.1551 36.1763 38.5115C36.4562 38.0641 36.77 37.6395 37.1217 37.2604V37.2641ZM7.56274 3.49174H47.4373C49.6872 3.49174 51.5174 5.3267 51.5174 7.58249V16.6322C49.517 15.309 47.1499 14.6911 45.0739 13.5044C41.3984 11.4079 38.7326 7.4043 34.5428 6.3655C28.0351 4.75043 22.7147 6.26314 17.8443 10.5548C15.7721 12.3784 13.9495 13.0533 11.3479 13.9632C9.30595 14.6759 7.23754 15.5365 5.74012 17.0985C0.695772 22.357 8.47026 28.3092 13.7339 28.423C15.4847 28.4609 16.0822 27.8391 17.6855 28.8893C19.2888 29.9395 20.6311 31.4863 21.5122 33.1923C22.2344 34.5875 23.1609 37.5447 22.3214 39.0157C21.0358 37.8745 19.4892 37.0708 17.7573 36.9153C17.7497 36.9153 17.7422 36.9153 17.7346 36.9116C15.2578 36.2443 11.934 31.1868 9.03369 32.7601C8.80302 32.8853 8.59127 33.0521 8.35682 33.1696C7.19216 33.7572 5.08594 33.3819 3.4902 33.5411V7.58249C3.4902 5.3267 5.32039 3.49174 7.5703 3.49174H7.56274ZM3.48264 56.4175V39.7398C3.48264 40.2024 5.7439 40.7748 6.09557 40.8545C7.15435 41.0971 8.22826 41.1502 9.30973 41.1274C11.3063 41.0857 13.3823 40.7066 15.1784 39.7967C17.2014 38.7731 18.4342 39.5124 20.2265 40.7407C24.1516 43.2998 22.8622 55.2877 23.1079 60.5083H7.56274C5.31282 60.5083 3.48264 58.6733 3.48264 56.4175ZM47.4373 60.5083H34.7054V45.8854C35.0117 44.0618 35.5978 42.2307 36.8267 40.8203C38.0065 39.4669 41.4211 37.4651 43.153 38.7693C43.4593 39.0005 43.6559 39.3493 43.9319 39.6147C45.4785 41.0971 48.8628 39.41 50.5645 38.9588C50.8783 38.8754 51.2224 38.7958 51.5136 38.9399V56.4137C51.5136 58.6695 49.6834 60.5045 47.4335 60.5045L47.4373 60.5083Z"/></svg></div>
+      <div class="foot__col"><h2>Materials</h2><ul><li><a href="#">Materials overview</a></li><li><a href="#">Carbon Smart Wood</a></li><li><a href="#">Arbor Wood</a></li><li><a href="#">Zena Floor Products</a></li></ul></div>
+      <div class="foot__col"><h2>Technology</h2><ul><li><a href="#">How it works</a></li></ul><h2>Resources</h2><ul><li><a href="#">Projects</a></li><li><a href="#">Blog</a></li></ul></div>
+      <div class="foot__col"><h2>Supply chains</h2><ul><li><a href="#">For Enterprise</a></li><li><a href="#">For General Contractors</a></li><li><a href="#">For Architects</a></li><li><a href="#">For Sawmills</a></li><li><a href="#">For Manufacturers</a></li></ul></div>
+      <div class="foot__col"><h2>About us</h2><ul><li><a href="#">Company</a></li><li><a href="#">Careers</a></li><li><a href="#">Impact</a></li><li><a href="#">Contact us</a></li></ul></div>
+      <div class="foot__quote"><a class="btn btn--primary" href="#"><span class="btn__label"><span data-label="Get a Quote">Get a Quote</span></span></a></div>
+    </div>
+    <div class="foot__mid">
+      <div class="foot__news">
+        <h2>Subscribe to our newsletter</h2>
+        <form onsubmit="return false"><input type="email" placeholder="Email address" aria-label="Email address"><button type="submit" aria-label="Subscribe">&rarr;</button></form>
+      </div>
+      <div class="foot__social"><a href="https://www.linkedin.com/company/cambium-carbon/">LinkedIn</a><a href="https://www.instagram.com/cambiumcarbon/">Instagram</a><a href="https://www.facebook.com/cambiumcarbon/">Facebook</a></div>
+    </div>
+    <div class="foot__legal"><span>&copy; 2026 Cambium</span><a href="#">Privacy Policy</a></div>
+  </div>
+</footer>
+
+<script src="https://unpkg.com/d3@7.9.0/dist/d3.min.js" integrity="sha384-CjloA8y00+1SDAUkjs099PVfnY2KmDC2BZnws9kh8D/lX1s46w6EPhpXdqMfjK6i" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/topojson-client@3.1.0/dist/topojson-client.min.js" integrity="sha384-Ukv1p/xTma6P4/2bY5KzWBw+ydSpXmhCMtyciIQVDJ1RmOxtCYNMF1uXT9T63H67" crossorigin="anonymous"></script>
+
+<!-- Page chrome: nav theme -->
+<script>
+(() => {
+  const nav = document.getElementById("nav");
+  const themed = [...document.querySelectorAll("[data-theme]")];
+  function syncNav(){
+    const y = nav.getBoundingClientRect().top + nav.querySelector(".nav__row").offsetHeight / 2;
+    let theme = "dark";
+    for(const el of themed){
+      const r = el.getBoundingClientRect();
+      if(r.top <= y && r.bottom > y) theme = el.dataset.theme;
+    }
+    nav.dataset.nav = theme === "light" ? "dark" : "light";
+  }
+  addEventListener("scroll", syncNav, {passive:true});
+  addEventListener("resize", syncNav);
+  syncNav();
+})();
+</script>
+
+<!-- ===================================================================
+     Supply network map
+     Canvas dot matrix underneath, SVG for lines and species names,
+     real buttons for hubs and pins so keyboards and screen readers work.
+     =================================================================== -->
+<script>
+(() => {
+"use strict";
+
+/* =====================================================================
+   1. DATA
+   Straight from the "Supplier Landing Page Data" Google Sheet.
+   To update: on each Display tab, select the header row plus every data
+   row, copy, and paste between the backticks. A paste from the sheet
+   comes in tab-separated and works as-is.
+   Only the columns named in the header below are read, so a stray
+   internal column (like real mill names) never reaches the page.
+   Rows without a region stay off the map.
+   ===================================================================== */
+const SAWMILLS = `
+Number | Display Name | Region | Cambium Status | Program Status | Capacity Status | Species
+01 | Southern Preferred Mill | South | Preferred | Active | Available | White Pine, Red Oak, White Oak, Poplar
+02 | Southern Preferred Mill | South | Preferred | Active | Available | Southern Yellow Pine, Ash, Red Oak, White Oak, Poplar, Hickory, Maple, Cypress
+03 | Midwestern Preferred Mill | Midwest | Preferred | Active | Available | TBD
+04 | Northeastern Preferred Mill | Northeast | Preferred | Active | Available | Ash, Basswood, Beech, Cherry, Hickory, Poplar, Red Oak, Soft Maple, Walnut, White Oak
+05 | Western Preferred Mill | West | Preferred | Active | Available | Douglas Fir, Western Red Cedar, Hemlock, Alaska Yellow Cedar, Southern Yellow Pine, Oregon White Oak, Maple, Tanoak, Madrone, Chinquapin, Myrtle, Oregon Ash
+06 | Western Qualified Mill | West | Qualified | Active | Full | Ponderosa Pine, Douglas Fir, Western Red Cedar, Incense Cedar, Hemlock, Western Juniper
+07 | Western Qualified Mill | West | Qualified | Active | Full | Orchard Walnut, Almond
+08 | Northeastern Qualified Mill | Northeast | Qualified | Active | Available | Poplar, White Oak, Red Oak, Hickory
+09 | Northeastern Qualified Mill | Northeast | Qualified | Active | Full | White Oak
+10 | Western Qualified Mill | West | Qualified | Validation | Available | Hemlock, White Fir
+11 | Midwestern Qualified Mill | Midwest | Qualified | Active | Available | SPF-S, Eastern White Pine
+12 | Midwestern Qualified Mill | Midwest | Qualified | Active | Available | SPF-S, Eastern White Pine
+13 | Western Qualified Mill | West | Qualified | Active | Available | Ponderosa Pine, Aspen
+14 | Midwestern Qualified Mill | Midwest | Qualified | Active | Available | White Oak, Ash, Elm, Black Walnut
+`;
+
+const PROGRAMS = `
+Number | Display Name | Region | Species | Annual BF | Program Type | Program Status
+01 | Furniture Program | Northeast | Thermal Oak | 44,380 | Recurring | Active
+02 | Furniture Program | West | English Walnut | 30,000 | Recurring | Active
+03 | Furniture Program | Midwest | Red Oak | 25,000 | Recurring | Active
+04 | Furniture Program | West | Doug Fir | 25,000 | Recurring | Active
+05 | Furniture Program | West | English Walnut | 2,000 | Recurring | Active
+06 | Sauna Program | Northeast | Thermal Poplar | 15,000 | Recurring | Active
+07 | Sauna Program | Midwest | Thermal Ash | 10,000 | Recurring | Active
+08 | CSW Millwork Program | West | Silky Cedar | 30,000 | Recurring | Active
+09 | CSW Millwork Program | Northeast | Thermal Oak | 50,000 | Recurring | Active
+10 | Finished Goods Program | Northeast | Poplar | 480,000 | Recurring | Active
+11 | Furniture Program | Northeast | White Oak | 5,000 | Recurring | Active
+12 | Furniture Program | Northeast | White Oak | 5,000 | Recurring | Active
+13 | Mass Timber Stock Program | South | Southern Yellow Pine | 100,000 | Recurring | Active
+14 | Countertop Program | West | Alder, Oregon White Oak | 5,000 | Recurring | Active
+15 | CSW Millwork Program | West | Hemlock, White Fir | 5,000 | Recurring | Active
+16 | CSW Finished Goods Program | West | Western Red Cedar | 5,000 | Recurring | Active
+17 | Mass Timber Stock Program | West | Ponderosa Pine | 40,000 | Recurring | Testing
+18 | Mass Timber Stock Program | West | Aspen | 40,000 | Recurring | Testing
+19 | CSW Millwork Program | Midwest | White Oak, Ash | 30,000 | Recurring | Active
+20 | CSW Millwork Program | Midwest | White Oak, Ash, Elm, Maple | 50,000 | Recurring | Active
+21 | Millwork Program | Midwest | White Oak, Ash | 60,000 | Recurring | Active
+22 | Furniture Program | Midwest | Cherry, White Oak, Red Oak, Ash, WalNOT, Maple | 20,000 | Recurring | Active
+`;
+
+/* "220+ mills and supply partners" comes from the page copy */
+const PARTNERS = "220+";
+
+/* Four regional hubs. Nothing finer than a region is ever plotted. */
+const HUBS = [
+  {name:"West",      lat:43.85, lng:-114.45},
+  {name:"Midwest",   lat:41.89, lng:-96.80},
+  {name:"South",     lat:31.17, lng:-87.89},
+  {name:"Northeast", lat:44.17, lng:-76.03},
+];
+
+/* The states each hub lights up when it opens (FIPS codes) */
+const REGION_STATES = {
+  West:      "04 06 08 16 30 32 35 41 49 53 56",
+  Midwest:   "17 18 19 20 26 27 29 31 38 39 46 55",
+  South:     "01 05 12 13 21 22 28 37 40 45 47 48",
+  Northeast: "09 10 11 23 24 25 33 34 36 42 44 50 51 54",
+};
+
+/* Sources: approximate native ranges. [lat, lng, radius in degrees] */
+const SPECIES_RANGES = [
+  {name:"Big Leaf Maple",       areas:[[47.2,-122.4,1.9],[44.2,-123.2,1.8],[39.6,-122.9,1.7]]},
+  {name:"Black Walnut",         areas:[[39.2,-88.0,3.6],[36.2,-84.5,3.0],[41.4,-93.4,2.6],[39.4,-77.6,2.2],[35.6,-79.8,2.2],[38.6,-92.4,3.0],[39.8,-86.2,2.4]]},
+  {name:"Cherry",               areas:[[41.6,-78.2,2.8],[38.2,-80.4,2.3],[43.2,-74.6,2.3],[44.6,-70.4,2.2],[41.8,-72.6,1.8],[40.4,-83.4,2.2]]},
+  {name:"Eastern White Pine",   areas:[[44.8,-70.2,2.4],[43.6,-73.4,2.2],[45.4,-84.6,2.6],[46.4,-90.4,2.6],[41.6,-78.6,2.4],[35.8,-82.8,2.0]]},
+  {name:"Douglas Fir",          areas:[[46.4,-122.3,2.2],[44.0,-121.8,2.2],[47.4,-116.2,2.2],[40.2,-121.4,1.8]]},
+  {name:"English Walnut",       areas:[[38.6,-121.8,1.1],[36.6,-119.9,1.1]]},
+  {name:"Juniper",              areas:[[43.6,-120.6,1.9],[40.2,-117.2,2.0],[39.2,-111.4,1.9]]},
+  {name:"Madrone",              areas:[[38.6,-122.7,1.5],[42.4,-123.1,1.5]]},
+  {name:"Oregon Ash",           areas:[[44.7,-123.1,1.1],[46.5,-122.9,1.0]]},
+  {name:"Oregon White Oak",     areas:[[44.9,-123.2,1.3],[47.2,-122.7,1.1],[41.2,-123.1,1.1]]},
+  {name:"Poplar",               areas:[[36.2,-82.2,2.8],[38.6,-79.4,2.3],[34.2,-85.4,2.6],[35.0,-80.6,2.4],[32.8,-83.4,2.4],[37.4,-77.4,2.0],[32.4,-88.6,2.2]]},
+  {name:"Silky Cedar",          areas:[[46.6,-123.4,1.7],[44.2,-123.7,1.5]]},
+  {name:"Soft Maple",           areas:[[43.2,-75.2,2.8],[44.4,-84.6,2.6],[40.2,-79.2,2.3],[45.2,-69.6,2.2],[43.6,-72.4,1.9],[39.4,-75.4,1.9],[45.0,-91.4,2.6],[31.4,-92.2,2.2]]},
+  {name:"Southern Yellow Pine", areas:[[31.4,-92.4,2.8],[32.4,-88.2,2.6],[31.2,-83.6,2.8],[34.0,-79.6,2.6],[30.6,-95.2,2.6]]},
+  {name:"Western Red Cedar",    areas:[[47.4,-122.6,1.9],[45.6,-123.4,1.7],[47.6,-116.2,1.7]]},
+  {name:"Tanoak",               areas:[[40.2,-123.6,1.3],[42.4,-123.6,1.1]]},
+  {name:"Western Larch",        areas:[[47.4,-114.6,1.7],[48.0,-117.4,1.4]]},
+  {name:"White Oak",            areas:[[38.2,-83.2,3.2],[41.2,-77.2,2.6],[35.2,-88.2,2.8],[42.4,-85.4,2.6],[36.8,-78.8,2.4],[42.6,-73.2,2.2],[33.6,-82.2,2.4],[37.4,-92.6,3.0],[33.0,-86.8,2.4]]},
+];
+
+/* Autoplay tour: runs while the map is on screen, until someone touches it */
+const TOUR_STEPS = [
+  {hub:"West"}, {species:"Douglas Fir"},
+  {hub:"Northeast"}, {species:"White Oak"},
+  {hub:"South"}, {species:"Southern Yellow Pine"},
+  {hub:"Midwest"}, {species:"Black Walnut"},
+];
+
+/* =====================================================================
+   2. Parse the sheet rows
+   ===================================================================== */
+function readSheet(text){
+  const rows = text.split(/\r?\n/).filter(r => r.trim());
+  if(!rows.length) return [];
+  const sep = rows[0].includes("\t") ? "\t" : "|";
+  const cols = rows[0].split(sep).map(c => c.trim().toLowerCase());
+  return rows.slice(1).map(r => {
+    const cells = r.split(sep), o = {};
+    cols.forEach((c, i) => { o[c] = (cells[i] || "").trim(); });
+    return o;
+  });
+}
+const clean = v => { v = (v || "").trim(); return /^(tbd|n\/a|na|-)$/i.test(v) ? "" : v; };
+const listOf = v => clean(v) ? clean(v).split(/\s*,\s*/).filter(Boolean) : [];
+const regionOf = v => (HUBS.find(h => h.name.toLowerCase() === (v || "").trim().toLowerCase()) || {}).name || null;
+
+const MILLS = readSheet(SAWMILLS).map(r => ({
+  cat:"sawmill", name:[clean(r["number"]), clean(r["display name"])].filter(Boolean).join(" "), region:regionOf(r["region"]),
+  status:clean(r["cambium status"]), program:clean(r["program status"]),
+  capacity:clean(r["capacity status"]), species:listOf(r["species"]),
+})).filter(m => m.name);
+
+const PROGS = readSheet(PROGRAMS).map(r => ({
+  cat:"program", name:[clean(r["number"]), clean(r["display name"])].filter(Boolean).join(" "), region:regionOf(r["region"]),
+  species:listOf(r["species"]), bf:clean(r["annual bf"]),
+  type:clean(r["program type"]), status:clean(r["program status"]),
+})).filter(p => p.name);
+
+const offMap = [...MILLS, ...PROGS].filter(x => !x.region);
+if(offMap.length) console.info("Not on the map (no region in the sheet):", offMap.map(x => x.name).join(", "));
+
+/* Each hub holds its own mills and programs, spread evenly around its fan */
+HUBS.forEach((h, i) => {
+  h.idx = i;
+  h.mills = MILLS.filter(m => m.region === h.name);
+  h.progs = PROGS.filter(p => p.region === h.name);
+  const spread = list => list.map((x, j) => [(j + .5) / list.length, x]);
+  h.items = [...spread(h.mills), ...spread(h.progs)].sort((a, b) => a[0] - b[0]).map(e => e[1]);
+  h.items.forEach(it => { it.hub = h; });
+});
+
+/* =====================================================================
+   3. Elements + helpers
+   ===================================================================== */
+const $ = id => document.getElementById(id);
+const root = $("net-map"), stage = $("net-stage"), canvas = $("net-dots"), svgEl = $("net-svg"), layer = $("net-layer");
+const tip = $("net-tip"), peek = $("net-peek"), statusEl = $("net-status"), statusTx = $("net-status-text");
+const regEl = $("net-regions");
+
+const REDUCED = matchMedia("(prefers-reduced-motion: reduce)").matches;
+const TOUCH = matchMedia("(hover: none)").matches;
+
+/* Scrolling the page under a resting cursor fires hover events too. Only
+   treat a hover as a person when the mouse has actually moved. */
+let LAST_MOVE = -1e9, LAST_XY = [NaN, NaN];
+document.addEventListener("pointermove", e => {
+  if(e.pointerType !== "mouse") return;
+  if(Math.abs(e.clientX - LAST_XY[0]) + Math.abs(e.clientY - LAST_XY[1]) > .5) LAST_MOVE = performance.now();
+  LAST_XY = [e.clientX, e.clientY];
+}, {capture:true, passive:true});
+const realHover = e => e.pointerType === "mouse" && performance.now() - LAST_MOVE < 150;
+
+const GLYPH = {
+  factory:"M2 20a1 1 0 0 0 1 1h18a1 1 0 0 0 1-1V8l-6 4V8l-6 4V4a1 1 0 0 0-1-1H5a1 1 0 0 0-1 1v3M2 20V9m3 12v-5h4v5",
+  recurring:"M21 8a9 9 0 0 0-15.6-3.4L3 7M3 4v3.5h3.5M3 16a9 9 0 0 0 15.6 3.4L21 17M21 20v-3.5h-3.5",
+  tree:"m17 14 3 3.3a1 1 0 0 1-.7 1.7H4.7a1 1 0 0 1-.7-1.7L7 14h-.3a1 1 0 0 1-.7-1.7L9 9h-.2A1 1 0 0 1 8 7.3L12 3l4 4.3a1 1 0 0 1-.8 1.7H15l3 3.3a1 1 0 0 1-.7 1.7H17zM12 22v-3",
+};
+const CAT = {
+  sawmill:{label:"Sawmill", icon:"factory", ink:"var(--brown-mid)"},
+  program:{label:"Recurring program", icon:"recurring", ink:"var(--brown-dark)"},
+};
+const esc = s => String(s).replace(/[&<>"']/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
+const plural = (n, one, many) => `${n} ${n === 1 ? one : (many || one + "s")}`;
+const pct = (v, of) => `${(v / of * 100).toFixed(3)}%`;
+const icon = name => `<svg viewBox="0 0 24 24" aria-hidden="true"><path d="${GLYPH[name]}"/></svg>`;
+
+/* The detail content: title + checklist, like the homepage hero tooltips */
+const speciesLine = list => list.length <= 3 ? list.join(", ") : `${list.slice(0, 3).join(", ")} +${list.length - 3} more`;
+function facts(p){
+  if(p.cat === "sawmill") return [
+    p.status && [`${p.status} partner`],
+    p.program && [/active/i.test(p.program) ? "Active in recurring programs" : /valid/i.test(p.program) ? "In validation for programs" : `Programs ${p.program.toLowerCase()}`],
+    p.capacity && (/full/i.test(p.capacity) ? ["At capacity", "no"] : [`Capacity ${p.capacity.toLowerCase()}`]),
+    p.species.length && [speciesLine(p.species)],
+  ].filter(Boolean);
+  return [
+    p.species.length && [speciesLine(p.species)],
+    p.bf && [`${p.bf} BF per year`],
+    (p.type || p.status) && [[p.type || "Program", p.status && (/active/i.test(p.status) ? "currently active" : p.status.toLowerCase())].filter(Boolean).join(", ")],
+  ].filter(Boolean);
+}
+const detailHTML = p => `<p class="tip-title">${icon(CAT[p.cat].icon)}<span>${esc(p.name)}</span></p>` +
+  `<ul class="checks">${facts(p).map(([t, kind]) => `<li${kind === "no" ? ' class="is-no"' : ""}>${esc(t)}</li>`).join("")}</ul>`;
+const itemLabel = p => `${p.name}. ${CAT[p.cat].label} in the ${p.region} hub. ${facts(p).map(f => f[0]).join(". ")}.`;
+
+/* Screen reader summary straight from the data */
+$("net-sr").innerHTML = `<h3>The network by hub</h3>` + HUBS.map(h =>
+  `<h4>${esc(h.name)}</h4><ul>${h.items.map(p => `<li>${esc(itemLabel(p))}</li>`).join("") || "<li>No featured partners yet</li>"}</ul>`).join("");
+
+if(!window.d3 || !window.topojson){
+  stage.insertAdjacentHTML("beforeend", `<p class="net-fallback">The network map could not load.</p>`);
+  return;
+}
+
+/* =====================================================================
+   4. State
+   ===================================================================== */
+const W = 960;
+let H = 520, MODE = null, K = 1, DPR = 1, STEP = 0;
+let STATES = null, NATION = null, HIT = null, DOTS = [], LAND = [], SRC = [];
+let OPEN = null, PINNED = false, SP_HOVER = null, ACTIVE = null, SEL = null;
+let REVEAL_T = null, IN_VIEW = false;
+const PTR = {x:0, y:0, on:false}, LENS = {x:0, y:0, s:0}, RIPPLES = [];
+const INK = {land:"#fffcf6", src:"#b9e4f8", lit:"#e8702f"};
+
+const projection = d3.geoAlbersUsa();
+const ctx = canvas.getContext("2d");
+const svg = d3.select(svgEl);
+const gLabels = svg.append("g");
+const gSpokes = svg.append("g");
+const gConn = svg.append("g");
+
+/* =====================================================================
+   5. Layout: the grid is sized in screen pixels, so the texture reads
+   the same on a phone and on a wide monitor
+   ===================================================================== */
+function layout(force){
+  const width = stage.clientWidth || 960;
+  const mode = width < 720 ? "compact" : "full";
+  const modeChanged = mode !== MODE;
+  if(modeChanged){
+    MODE = mode;
+    root.classList.toggle("is-compact", MODE === "compact");
+    H = MODE === "full" ? 520 : 600;
+    stage.style.aspectRatio = `${W} / ${H}`;
+    svgEl.setAttribute("viewBox", `0 0 ${W} ${H}`);
+    projection.fitExtent(MODE === "full" ? [[124, 64], [W - 108, H - 6]] : [[14, 24], [W - 14, H - 30]], NATION);
+    HUBS.forEach(h => { const p = projection([h.lng, h.lat]); h.cx = p[0]; h.cy = p[1]; });
+    buildHit();
+  }
+  K = width / W;
+  DPR = Math.min(2, window.devicePixelRatio || 1);
+  canvas.width = Math.round(width * DPR);
+  canvas.height = Math.round(width * H / W * DPR);
+  const step = MODE === "full" ? Math.min(12, Math.max(7, 10.5 / K)) : 6.5 / K;
+  if(modeChanged || force || Math.abs(step - STEP) / STEP > .12){
+    STEP = step;
+    buildDots(); buildSources(); buildLabels();
+  }
+  if(modeChanged){
+    TOUR.token++; TOUR.on = false;
+    OPEN = null; PINNED = false; SP_HOVER = null; ACTIVE = null;
+    tip.classList.remove("is-shown"); gConn.selectAll("*").remove();
+    drawHubs(); syncLabels(); syncStatus();
+    layer.querySelectorAll(".pin").forEach(n => n.remove()); gSpokes.selectAll("*").remove();
+    if(MODE === "compact"){
+      SEL = SEL || HUBS.slice().sort((a, b) => b.items.length - a.items.length)[0];
+      setHub(SEL, true); renderRegions();
+    } else {
+      regEl.innerHTML = "";
+      syncHubs();
+      setTimeout(() => { if(IN_VIEW) runTour(); }, 600);
+    }
+  } else if(ACTIVE){
+    placeTip(ACTIVE);
+  }
+  requestDraw();
+}
+
+/* Offscreen "hit map": every state painted in its hub's color, so each grid
+   point can ask which region it belongs to in one lookup */
+function buildHit(){
+  const c = document.createElement("canvas");
+  c.width = W; c.height = H;
+  const g = c.getContext("2d", {willReadFrequently:true});
+  const path = d3.geoPath(projection, g);
+  STATES.forEach(f => { g.beginPath(); path(f); g.fillStyle = `rgb(${(f.reg + 1) * 50},0,0)`; g.fill(); });
+  HIT = g.getImageData(0, 0, W, H).data;
+}
+function regionAt(x, y){
+  const xi = Math.min(W - 1, Math.max(0, Math.round(x))), yi = Math.min(H - 1, Math.max(0, Math.round(y)));
+  const i = (yi * W + xi) * 4;
+  if(HIT[i + 3] < 140) return -1;
+  return Math.min(3, Math.max(0, Math.round(HIT[i] / 50) - 1));
+}
+function buildDots(){
+  DOTS = [];
+  const rowH = STEP * Math.sqrt(3) / 2;
+  let row = 0;
+  for(let y = rowH / 2; y < H; y += rowH, row++){
+    for(let x = row % 2 ? STEP : STEP / 2; x < W; x += STEP){
+      const reg = regionAt(x, y);
+      if(reg < 0) continue;
+      DOTS.push({x, y, reg, sp:null, a:-1, r:0, appear:140 + x / W * 950 + y / H * 160});
+    }
+  }
+}
+function mulberry32(a){ return function(){ a |= 0; a = a + 0x6D2B79F5 | 0; let t = Math.imul(a ^ a >>> 15, 1 | a); t = t + Math.imul(t ^ t >>> 7, 61 | t) ^ t; return ((t ^ t >>> 14) >>> 0) / 4294967296; }; }
+/* Sources snap to the grid: a seeded pick of grid points inside each range */
+function buildSources(){
+  DOTS.forEach(d => { d.sp = null; });
+  SPECIES_RANGES.forEach((sp, si) => {
+    const rnd = mulberry32(si * 9973 + 17), cand = new Set();
+    sp.areas.forEach(([lat, lng, rad]) => {
+      const c = projection([lng, lat]);
+      if(!c) return;
+      const e = projection([lng, lat + rad * .72]);
+      const R = e ? Math.hypot(e[0] - c[0], e[1] - c[1]) : 20;
+      DOTS.forEach((d, i) => { if((d.x - c[0]) ** 2 + (d.y - c[1]) ** 2 <= R * R) cand.add(i); });
+    });
+    const arr = [...cand];
+    for(let i = arr.length - 1; i > 0; i--){ const j = Math.floor(rnd() * (i + 1)); [arr[i], arr[j]] = [arr[j], arr[i]]; }
+    const want = Math.round(Math.min(34, Math.max(14, sp.areas.length * 6)) * (MODE === "full" ? 1.15 : .8));
+    arr.slice(0, want).forEach(i => { const d = DOTS[i]; (d.sp || (d.sp = [])).push(si); });
+  });
+  LAND = DOTS.filter(d => !d.sp);
+  SRC = DOTS.filter(d => d.sp);
+}
+
+/* =====================================================================
+   6. Canvas: dot field, cursor lens, ripples, region glow
+   ===================================================================== */
+let RAF = 0, LAST_T = 0;
+const requestDraw = () => { if(!RAF) RAF = requestAnimationFrame(frame); };
+function frame(now){
+  RAF = 0;
+  const dt = Math.min(50, now - (LAST_T || now)); LAST_T = now;
+  const k = 1 - Math.pow(.8, dt / 16.7);
+  let busy = false;
+
+  ctx.setTransform(1, 0, 0, 1, 0, 0);
+  ctx.clearRect(0, 0, canvas.width, canvas.height);
+  if(REVEAL_T == null || !DOTS.length) return;
+  ctx.setTransform(K * DPR, 0, 0, K * DPR, 0, 0);
+
+  const rt = now - REVEAL_T, revealing = !REDUCED && rt < 1900;
+  if(revealing) busy = true;
+
+  const lensOn = PTR.on && MODE === "full" ? 1 : 0;
+  LENS.s += (lensOn - LENS.s) * k;
+  LENS.x += (PTR.x - LENS.x) * Math.min(1, k * 1.7);
+  LENS.y += (PTR.y - LENS.y) * Math.min(1, k * 1.7);
+  if(Math.abs(lensOn - LENS.s) > .01 || (LENS.s > .01 && Math.hypot(PTR.x - LENS.x, PTR.y - LENS.y) > .4)) busy = true;
+  const LR = STEP * 6.5, LR2 = LR * LR;
+
+  for(let i = RIPPLES.length - 1; i >= 0; i--) if(now - RIPPLES[i].t0 > RIPPLE_MS) RIPPLES.splice(i, 1);
+  if(RIPPLES.length) busy = true;
+
+  const rLand = STEP * .16, rSrc = STEP * .26;
+  const openReg = OPEN ? OPEN.idx : -1;
+  const lit = SP_HOVER, dimLand = lit != null;
+
+  for(let pass = 0; pass < 3; pass++){
+    ctx.fillStyle = pass === 0 ? INK.land : pass === 1 ? INK.src : INK.lit;
+    const list = pass === 0 ? LAND : SRC;
+    for(let n = 0; n < list.length; n++){
+      const d = list[n];
+      const isLit = lit != null && d.sp && d.sp.includes(lit);
+      if((pass === 1 && isLit) || (pass === 2 && !isLit)) continue;
+      let ta, tr;
+      if(pass === 0){
+        ta = openReg >= 0 ? (d.reg === openReg ? .46 : .08) : .21;
+        if(dimLand) ta = Math.min(ta, .14);
+        tr = rLand;
+      } else if(pass === 1){
+        ta = openReg >= 0 ? (d.reg === openReg ? .95 : .28) : .88;
+        if(lit != null) ta = .16;
+        tr = rSrc;
+      } else { ta = 1; tr = rSrc * 1.4; }
+      if(d.a < 0){ d.a = ta; d.r = tr; }
+      d.a += (ta - d.a) * k; d.r += (tr - d.r) * k;
+      if(Math.abs(ta - d.a) > .004 || Math.abs(tr - d.r) > .004) busy = true;
+      let a = d.a, r = d.r;
+      if(revealing){
+        const t = (rt - d.appear) / 460;
+        if(t <= 0) continue;
+        if(t < 1){ const e = t * t * (3 - 2 * t); a *= e; r *= .3 + .7 * e; }
+      }
+      if(LENS.s > .01){
+        const dx = d.x - LENS.x, dy = d.y - LENS.y, dd = dx * dx + dy * dy;
+        if(dd < LR2){ const f = (1 - Math.sqrt(dd) / LR) ** 2 * LENS.s; a += (pass === 0 ? .16 : .05) * f; r *= 1 + .3 * f; }
+      }
+      for(let q = 0; q < RIPPLES.length; q++){
+        const rp = RIPPLES[q], t = now - rp.t0, dist = Math.hypot(d.x - rp.x, d.y - rp.y) - t * .42;
+        const g = Math.exp(-(dist * dist) / 260) * (1 - t / RIPPLE_MS) ** 2;
+        if(g > .01){ a += .14 * g; r *= 1 + .22 * g; }
+      }
+      if(a < .01) continue;
+      ctx.globalAlpha = Math.min(1, a);
+      ctx.beginPath(); ctx.arc(d.x, d.y, r, 0, 6.2832); ctx.fill();
+    }
+  }
+  ctx.globalAlpha = 1;
+  if(busy) requestDraw();
+}
+/* Kept deliberately quiet: a faint ring that fades before it crosses the map */
+const RIPPLE_MS = 1100;
+function ripple(x, y){ if(!REDUCED){ RIPPLES.push({x, y, t0:performance.now()}); requestDraw(); } }
+
+/* =====================================================================
+   7. Hubs (buttons on the map)
+   ===================================================================== */
+function drawHubs(){
+  layer.querySelectorAll(".hub").forEach(n => n.remove());
+  HUBS.forEach((h, i) => {
+    const b = document.createElement("button");
+    b.type = "button";
+    b.className = "hub glass";
+    b.style.cssText = `--x:${pct(h.cx, W)};--y:${pct(h.cy, H)};--i:${i};--d:${(1.1 + i * .12).toFixed(2)}s`;
+    b.setAttribute("aria-expanded", "false");
+    b.setAttribute("aria-label", `${h.name} hub: ${plural(h.mills.length, "featured sawmill")}, ${plural(h.progs.length, "recurring program")}`);
+    b.innerHTML = `<span class="hub__mark" aria-hidden="true">${icon("tree")}</span><span class="hub__name">${esc(h.name)}</span>`;
+    const hover = e => {
+      if(e.pointerType !== "mouse" || MODE !== "full") return;
+      /* staying on an open hub always keeps it open; opening one needs a real move */
+      if(OPEN === h && TOUR.stopped){ cancelClose(); return; }
+      if(!realHover(e)) return;
+      userTookOver(); cancelClose();
+      if(OPEN !== h){ PINNED = false; setHub(h); }
+    };
+    b.addEventListener("pointerenter", hover);
+    b.addEventListener("pointermove", hover);
+    b.addEventListener("pointerleave", e => { if(e.pointerType === "mouse" && TOUR.stopped && MODE === "full" && !PINNED) scheduleClose(); });
+    b.addEventListener("click", e => { e.stopPropagation(); userTookOver(); pressHub(h); });
+    b.addEventListener("focus", () => {
+      if(MODE !== "full" || !b.matches(":focus-visible")) return;
+      userTookOver(); cancelClose();
+      if(OPEN !== h){ PINNED = false; setHub(h); }
+    });
+    b.addEventListener("blur", e => {
+      if(MODE === "full" && !PINNED && !(e.relatedTarget && layer.contains(e.relatedTarget))) scheduleClose();
+    });
+    layer.appendChild(b);
+    h.el = b;
+  });
+}
+function syncHubs(){
+  layer.classList.toggle("has-open", !!OPEN);
+  HUBS.forEach(h => { if(h.el) h.el.setAttribute("aria-expanded", h === OPEN ? "true" : "false"); });
+}
+function pressHub(h){
+  if(MODE === "compact"){ selectRegion(h); return; }
+  cancelClose();
+  if(OPEN === h && PINNED){ PINNED = false; setHub(null); }
+  else { PINNED = true; setHub(h); }
+}
+let CLOSE_T = null;
+function cancelClose(){ clearTimeout(CLOSE_T); CLOSE_T = null; }
+function scheduleClose(){ cancelClose(); CLOSE_T = setTimeout(() => { CLOSE_T = null; hideTip(); setHub(null); }, 380); }
+function setHub(h, quiet){
+  if(h === OPEN){ syncHubs(); return; }
+  OPEN = h;
+  hideTip(); syncHubs(); drawPins(); syncLabels(); syncStatus();
+  if(h && !quiet) ripple(h.cx, h.cy);
+  requestDraw();
+}
+function closeAll(){ cancelClose(); PINNED = false; hideTip(); setHub(null); hoverSpecies(null); }
+/* Everything within reach of the open hub: the pill, every pin, and the
+   space between them, with a comfortable margin */
+function inFan(x, y){
+  if(!OPEN) return false;
+  let reach = 0;
+  OPEN.items.forEach(p => { if(p.x != null) reach = Math.max(reach, Math.hypot(p.x - OPEN.cx, p.y - OPEN.cy)); });
+  return Math.hypot(x - OPEN.cx, y - OPEN.cy) <= reach + (pinPx() / 2 + 34) / K;
+}
+
+/* =====================================================================
+   8. Spokes + pins
+   ===================================================================== */
+const pinPx = () => MODE === "full" ? Math.min(34, Math.max(24, stage.clientWidth * .0235)) : 23;
+/* A ring that would run off the map slides back in as one piece, so pins
+   never bunch up against an edge */
+function fitRing(items, pts, h){
+  const m = (pinPx() / 2 + 6) / K;
+  const xs = pts.map(p => p[0]), ys = pts.map(p => p[1]);
+  const dx = Math.min(0, W - m - Math.max(...xs)) || Math.max(0, m - Math.min(...xs));
+  const dy = Math.min(0, H - m - Math.max(...ys)) || Math.max(0, m - Math.min(...ys));
+  return items.map((p, i) => Object.assign(p, {x:pts[i][0] + dx, y:pts[i][1] + dy, ox:h.cx, oy:h.cy}));
+}
+function fanLayout(h){
+  const [r1, r2] = MODE === "full" ? [86, 124] : [54 / K, 80 / K], sq = MODE === "full" ? .78 : .9;
+  const n = h.items.length, inner = Math.min(n, 10), pts = [];
+  [[r1, inner, 0], [r2, n - inner, 1]].forEach(([rad, cap, ri]) => {
+    for(let i = 0; i < cap; i++){
+      const a = -Math.PI / 2 + (i / cap) * Math.PI * 2 + (ri ? Math.PI / cap : 0);
+      pts.push([h.cx + Math.cos(a) * rad, h.cy + Math.sin(a) * rad * sq]);
+    }
+  });
+  return fitRing(h.items, pts, h);
+}
+function spokeItems(){ return OPEN ? fanLayout(OPEN) : []; }
+function drawPins(){
+  layer.querySelectorAll(".pin:not(.is-gone)").forEach(el => {
+    const p = el._p;
+    el.classList.add("is-gone"); el.classList.remove("is-active", "is-dim"); el.tabIndex = -1;
+    el.style.setProperty("--x", pct(p.ox, W)); el.style.setProperty("--y", pct(p.oy, H));
+    setTimeout(() => el.remove(), 520);
+  });
+  gSpokes.selectAll("g.spoke:not(.is-gone)").classed("is-gone", true).classed("is-in", false)
+    .each(function(){ const n = this; setTimeout(() => n.remove(), 450); });
+
+  const items = spokeItems();
+  if(!items.length) return;
+  const anim = !REDUCED && !document.hidden;
+  const after = new Map();
+  const made = items.map((p, i) => {
+    const d = `M${p.ox.toFixed(1)},${p.oy.toFixed(1)}L${p.x.toFixed(1)},${p.y.toFixed(1)}`;
+    const g = gSpokes.append("g").attr("class", `spoke spoke--${p.cat}`).style("--fd", `${(-i * .41).toFixed(2)}s`);
+    g.node().__p = p;
+    g.append("path").attr("class", "ln-base").attr("d", d).attr("pathLength", 100);
+    g.append("path").attr("class", "ln-flow").attr("d", d).attr("pathLength", 100);
+
+    const b = document.createElement("button");
+    b.type = "button";
+    b.className = `pin pin--${p.cat}${anim ? " is-out" : ""}`;
+    b._p = p;
+    b.style.setProperty("--x", pct(anim ? p.ox : p.x, W));
+    b.style.setProperty("--y", pct(anim ? p.oy : p.y, H));
+    b.style.setProperty("--dl", `${i * 28}ms`);
+    b.setAttribute("aria-label", itemLabel(p));
+    if(MODE !== "full") b.tabIndex = -1;
+    b.innerHTML = icon(CAT[p.cat].icon);
+    const enter = e => {
+      if(e.pointerType !== "mouse" || MODE !== "full") return;
+      if(TOUR.stopped) cancelClose();
+      if(!realHover(e) || (ACTIVE === p && TOUR.stopped)) return;
+      userTookOver(); cancelClose(); showTip(p);
+    };
+    b.addEventListener("pointerenter", enter);
+    b.addEventListener("pointermove", enter);
+    b.addEventListener("pointerleave", e => {
+      if(e.pointerType !== "mouse" || !TOUR.stopped || MODE !== "full") return;
+      hideTip(); if(!PINNED) scheduleClose();
+    });
+    b.addEventListener("click", e => {
+      e.stopPropagation(); userTookOver();
+      if(MODE === "compact"){ flashCard(p); return; }
+      cancelClose(); PINNED = true;
+      if(ACTIVE === p && TOUCH) hideTip(); else showTip(p);
+    });
+    b.addEventListener("focus", () => { if(MODE === "full" && b.matches(":focus-visible")){ userTookOver(); cancelClose(); showTip(p); } });
+    b.addEventListener("blur", e => {
+      if(MODE !== "full") return;
+      if(e.relatedTarget && e.relatedTarget.classList && e.relatedTarget.classList.contains("pin")) return;
+      hideTip();
+      if(!PINNED && !(e.relatedTarget && layer.contains(e.relatedTarget))) scheduleClose();
+    });
+    /* keep tab order: a hub, then its own pins */
+    const anchor = after.get(p.hub) || p.hub.el;
+    anchor.after(b); after.set(p.hub, b);
+    return [b, g, p];
+  });
+  const go = () => made.forEach(([b, g, p]) => {
+    b.classList.remove("is-out");
+    b.style.setProperty("--x", pct(p.x, W)); b.style.setProperty("--y", pct(p.y, H));
+    g.classed("is-in", true);
+  });
+  if(anim) requestAnimationFrame(() => requestAnimationFrame(go)); else go();
+  setTimeout(() => made.forEach(([b]) => b.style.setProperty("--dl", "0s")), 900);
+}
+
+/* =====================================================================
+   9. Tooltip + connector
+   ===================================================================== */
+function showTip(p){
+  if(MODE !== "full") return;
+  if(ACTIVE !== p){
+    ACTIVE = p;
+    tip.classList.remove("is-shown");
+    tip.innerHTML = detailHTML(p);
+    void tip.offsetWidth;
+  }
+  hidePeek();
+  placeTip(p);
+  tip.classList.add("is-shown");
+  layer.querySelectorAll(".pin:not(.is-gone)").forEach(el => {
+    el.classList.toggle("is-active", el._p === p);
+    el.classList.toggle("is-dim", el._p !== p);
+  });
+  gSpokes.selectAll("g.spoke").classed("is-dim", function(){ return this.__p !== p; });
+}
+function hideTip(){
+  if(!ACTIVE && !tip.classList.contains("is-shown")) return;
+  ACTIVE = null;
+  tip.classList.remove("is-shown");
+  layer.querySelectorAll(".pin").forEach(el => el.classList.remove("is-active", "is-dim"));
+  gSpokes.selectAll("g.spoke").classed("is-dim", false);
+  gConn.selectAll("*").remove();
+}
+/* Sit beside the point, on the far side from its hub, clear of the status
+   pill and the open hub. Covering a few other pins is fine. */
+function placeTip(d){
+  const pw = tip.offsetWidth, ph = tip.offsetHeight, CW = stage.clientWidth, CH = stage.clientHeight, gap = 30, m = 8;
+  const px = d.x * K, py = d.y * K, hx = d.hub.cx * K, hy = d.hub.cy * K;
+  const sr = stage.getBoundingClientRect();
+  const blocks = [statusEl, OPEN && OPEN.el].filter(Boolean).map(el => {
+    const r = el.getBoundingClientRect();
+    return {l:r.left - sr.left - 8, t:r.top - sr.top - 8, r:r.right - sr.left + 8, b:r.bottom - sr.top + 8};
+  });
+  /* keep clear of the site's floating nav (anything marked data-net-avoid) */
+  document.querySelectorAll("[data-net-avoid]").forEach(el => {
+    const bottom = Math.max(0, ...[...el.querySelectorAll("*")].map(c => c.getBoundingClientRect().bottom).filter(b => b > 0));
+    if(bottom) blocks.push({l:-1e4, t:-1e4, r:1e4, b:bottom - sr.top + 10});
+  });
+  const others = [...layer.querySelectorAll(".pin:not(.is-gone)")].filter(el => el._p !== d).map(el => [el._p.x * K, el._p.y * K]);
+  const overlap = (a, b) => Math.max(0, Math.min(a.r, b.r) - Math.max(a.l, b.l)) * Math.max(0, Math.min(a.b, b.b) - Math.max(a.t, b.t));
+  const out = Math.atan2(py - hy, px - hx);
+  /* candidates fan around the point, plus straight beside it; every one is
+     scored, so the least-bad spot wins instead of a blind fallback */
+  const cands = [];
+  for(let k = 0; k < 16; k++){
+    const ang = out + (k % 2 ? 1 : -1) * Math.ceil(k / 2) * (Math.PI / 8);
+    cands.push([px + Math.cos(ang) * (gap + pw / 2) - pw / 2, py + Math.sin(ang) * (gap + ph / 2) - ph / 2, k * 6]);
+  }
+  [-1, 1].forEach(s => [.15, .5, .85].forEach(f => cands.push([s < 0 ? px - gap - pw : px + gap, py - ph * f, 30])));
+  let best = null;
+  cands.forEach(([x, y, cost]) => {
+    const l = Math.max(m, Math.min(x, CW - pw - m)), t = Math.max(m, Math.min(y, CH - ph - m));
+    const rect = {l, t, r:l + pw, b:t + ph};
+    const buried = px > rect.l - 18 && px < rect.r + 18 && py > rect.t - 18 && py < rect.b + 18;
+    const blocked = blocks.reduce((s, b) => s + overlap(rect, b), 0);
+    const covered = others.filter(([ox, oy]) => ox > rect.l - 14 && ox < rect.r + 14 && oy > rect.t - 14 && oy < rect.b + 14).length;
+    const score = cost + covered * 14 + blocked * .08 + Math.hypot(l - x, t - y) * .5 + (buried ? 1e6 : 0);
+    if(!best || score < best.score) best = {l, t, score};
+  });
+  tip.style.left = best.l + "px";
+  tip.style.top = best.t + "px";
+  drawConn(d, best.l, best.t, pw, ph);
+}
+function drawConn(d, l, t, pw, ph){
+  gConn.selectAll("*").remove();
+  const L = l / K, T = t / K, R = (l + pw) / K, B = (t + ph) / K;
+  if(d.x > L && d.x < R && d.y > T && d.y < B) return;
+  const cx = (L + R) / 2, cy = (T + B) / 2, vx = cx - d.x, vy = cy - d.y;
+  let s = 0;
+  if(vx > 0) s = Math.max(s, (L - d.x) / vx); else if(vx < 0) s = Math.max(s, (R - d.x) / vx);
+  if(vy > 0) s = Math.max(s, (T - d.y) / vy); else if(vy < 0) s = Math.max(s, (B - d.y) / vy);
+  s = Math.min(1, Math.max(0, s));
+  const ax = d.x + vx * s, ay = d.y + vy * s, len = Math.hypot(ax - d.x, ay - d.y), r0 = (pinPx() / 2 + 5) / K;
+  if(len <= r0 + 3) return;
+  const sx = d.x + (ax - d.x) / len * r0, sy = d.y + (ay - d.y) / len * r0;
+  const path = `M${sx.toFixed(1)},${sy.toFixed(1)}L${ax.toFixed(1)},${ay.toFixed(1)}`;
+  const g = gConn.append("g").attr("class", "conn");
+  g.append("path").attr("class", "ln-base").attr("d", path).attr("pathLength", 100);
+  g.append("path").attr("class", "ln-flow").attr("d", path).attr("pathLength", 100);
+  requestAnimationFrame(() => g.classed("is-in", true));
+}
+
+/* Species under a resting cursor */
+let PEEK_T = 0;
+function schedulePeek(){
+  clearTimeout(PEEK_T);
+  peek.classList.remove("is-shown");
+  if(MODE !== "full" || OPEN || ACTIVE || SP_HOVER != null) return;
+  PEEK_T = setTimeout(showPeek, 170);
+}
+function showPeek(){
+  if(!PTR.on || OPEN || ACTIVE || SP_HOVER != null) return;
+  const R2 = (STEP * 1.6) ** 2, found = new Set();
+  for(const d of SRC) if((d.x - PTR.x) ** 2 + (d.y - PTR.y) ** 2 <= R2) d.sp.forEach(si => found.add(si));
+  if(!found.size) return;
+  const names = [...found].map(si => SPECIES_RANGES[si].name);
+  peek.textContent = names.slice(0, 2).join(" · ") + (names.length > 2 ? ` +${names.length - 2}` : "");
+  const px = PTR.x * K, py = PTR.y * K, w = peek.offsetWidth;
+  const x = px + 18 + w > stage.clientWidth ? px - 18 - w : px + 18;
+  peek.style.transform = `translate(${x.toFixed(0)}px,${(py + 16).toFixed(0)}px)`;
+  peek.classList.add("is-shown");
+}
+function hidePeek(){ clearTimeout(PEEK_T); peek.classList.remove("is-shown"); }
+
+/* =====================================================================
+   10. Species names in the margins (field-guide annotation)
+   ===================================================================== */
+const KEEP = 36;
+const hubCenters = () => HUBS.map(h => [h.cx, h.cy]);
+const hubClear = (x, y) => d3.min(hubCenters(), c => Math.hypot(c[0] - x, c[1] - y)) ?? 1e6;
+function buildLabels(){
+  gLabels.selectAll("*").remove();
+  if(MODE !== "full") return;
+  const labels = [], dots = [];
+  SPECIES_RANGES.forEach((sp, si) => {
+    const mine = SRC.filter(d => d.sp.includes(si)).map(d => ({si, x:d.x, y:d.y}));
+    dots.push(...mine);
+    if(!mine.length) return;
+    const side = d3.mean(mine, p => p.x) < W / 2 ? -1 : 1;
+    const free = mine.filter(p => hubClear(p.x, p.y) >= KEEP + 4);
+    let ax, ay;
+    if(free.length){
+      const pick = free.reduce((a, b) => (b.x * side > a.x * side ? b : a)); ax = pick.x; ay = pick.y;
+    } else {
+      const pick = mine.reduce((a, b) => hubClear(b.x, b.y) > hubClear(a.x, a.y) ? b : a);
+      const h = hubCenters().reduce((a, b) => Math.hypot(b[0] - pick.x, b[1] - pick.y) < Math.hypot(a[0] - pick.x, a[1] - pick.y) ? b : a);
+      const ang = Math.atan2(pick.y - h[1], pick.x - h[0]);
+      ax = h[0] + Math.cos(ang) * (KEEP + 8); ay = h[1] + Math.sin(ang) * (KEEP + 8);
+    }
+    labels.push({si, name:sp.name, ax, ay});
+  });
+  layoutLabels(labels, dots);
+  const g = gLabels.selectAll("g.splab").data(labels).join("g").attr("class", "splab")
+    .style("--d", (d, i) => `${(.95 + i * .035).toFixed(3)}s`)
+    .on("pointerenter pointermove", (e, d) => {
+      if(!realHover(e) || MODE !== "full") return;
+      if(SP_HOVER === d.si && TOUR.stopped) return;
+      userTookOver();
+      if(OPEN) setHub(null);
+      hoverSpecies(d.si);
+    })
+    .on("pointerleave", e => { if(e.pointerType === "mouse" && TOUR.stopped) hoverSpecies(null); })
+    .on("click", (e, d) => { e.stopPropagation(); userTookOver(); if(OPEN) setHub(null); hoverSpecies(SP_HOVER === d.si ? null : d.si); });
+  g.each(function(d){
+    const el = d3.select(this), L = d.side === "L";
+    el.append("path").attr("class", "ldr").attr("d", leaderPath(d));
+    el.append("circle").attr("class", "anch").attr("cx", d.ax).attr("cy", d.ay).attr("r", 1.8);
+    const w = d.name.length * 6.3 + 10;
+    el.append("rect").attr("class", "hit").attr("x", L ? d.lx - w : d.lx - 5).attr("y", d.ly - 8).attr("width", w + 5).attr("height", 16);
+    el.append("text").attr("x", d.lx).attr("y", d.ly + 3.5).attr("text-anchor", L ? "end" : "start").text(d.name);
+  });
+  syncLabels();
+}
+function segHit(p, q, cs){
+  for(const c of cs){
+    const vx = q[0] - p[0], vy = q[1] - p[1], L2 = vx * vx + vy * vy || 1;
+    const t = Math.max(0, Math.min(1, ((c[0] - p[0]) * vx + (c[1] - p[1]) * vy) / L2));
+    if(Math.hypot(p[0] + vx * t - c[0], p[1] + vy * t - c[1]) < KEEP) return c;
+  }
+  return null;
+}
+function pathOK(pts, cs){ for(let i = 0; i < pts.length - 1; i++) if(segHit(pts[i], pts[i + 1], cs)) return false; return true; }
+function leaderPath(d){
+  const L = d.side === "L", ex = L ? d.lx + 10 : d.lx - 10, cs = hubCenters(), sx = L ? -1 : 1, R = KEEP + 12;
+  const cands = [
+    [[d.ax, d.ay], [(d.ax + ex) / 2, d.ly], [ex, d.ly]],
+    [[d.ax, d.ay], [d.ax, d.ly], [ex, d.ly]],
+  ];
+  const near = cs.slice().sort((a, b) => Math.hypot(a[0] - d.ax, a[1] - d.ay) - Math.hypot(b[0] - d.ax, b[1] - d.ay))[0];
+  if(near){
+    const ang = Math.atan2(d.ay - near[1], d.ax - near[0]);
+    const out = [near[0] + Math.cos(ang) * R, near[1] + Math.sin(ang) * R];
+    const vy = d.ly < near[1] ? -1 : 1;
+    cands.push(
+      [[d.ax, d.ay], out, [ex, d.ly]],
+      [[d.ax, d.ay], out, [near[0] + sx * R, d.ly], [ex, d.ly]],
+      [[d.ax, d.ay], out, [near[0] + sx * R, near[1] + vy * R], [ex, d.ly]]
+    );
+  }
+  let pts = cands.find(c => pathOK(c, cs)) || cands[cands.length - 1];
+  pts = pts.filter((p, i, a) => !i || Math.hypot(p[0] - a[i - 1][0], p[1] - a[i - 1][1]) > 1);
+  return "M" + pts.map(p => p[0].toFixed(1) + "," + p[1].toFixed(1)).join(" L");
+}
+function layoutLabels(labels, dots){
+  const MID = W / 2, COL_L = 114, COL_R = W - 140, GAP = 21;
+  ["L", "R"].forEach(side => {
+    const set = labels.filter(l => (l.ax < MID ? "L" : "R") === side).sort((a, b) => a.ay - b.ay);
+    const span = H - 112, top = 76, lx = side === "L" ? COL_L : COL_R;
+    let free = [[top, top + span]];
+    HUBS.filter(h => Math.abs(h.cx - lx) < 150).forEach(h => {
+      const a = h.cy - 52, b = h.cy + 52, out = [];
+      free.forEach(([s, e]) => {
+        if(b <= s || a >= e){ out.push([s, e]); return; }
+        if(a > s) out.push([s, a]);
+        if(b < e) out.push([b, e]);
+      });
+      free = out;
+    });
+    if(free.length > 1) free = free.filter(([s, e]) => e - s >= GAP * 3);
+    if(!free.length) free = [[top, top + span]];
+    const total = free.reduce((t, [s, e]) => t + (e - s), 0) || span;
+    if(side === "R"){
+      const west = labels.filter(l => l.side === "L").sort((a, b) => a.ly - b.ly);
+      const PITCH = west.length > 1 ? (west[west.length - 1].ly - west[0].ly) / (west.length - 1) : GAP;
+      const need = (set.length - 1) * PITCH;
+      const bands = HUBS.filter(h => Math.abs(h.cx - lx) < 150).map(h => [h.cy - 52, h.cy + 52]);
+      const clamp = v => Math.max(top, Math.min(top + span - need, v));
+      let start = clamp(west.length ? west[0].ly : top);
+      bands.forEach(([a, b]) => {
+        if(start + need <= a || start >= b) return;
+        const up = clamp(a - need), down = clamp(b);
+        const upOK = up + need <= a, downOK = down >= b;
+        if(upOK && (!downOK || Math.abs(up - start) <= Math.abs(down - start))) start = up;
+        else if(downOK) start = down;
+      });
+      set.forEach((l, i) => { l.ly = start + i * PITCH; l.side = side; l.lx = lx; });
+      return;
+    }
+    set.forEach((l, i) => {
+      let t = (set.length > 1 ? (i + .5) / set.length : .5) * total, y = free.length ? free[free.length - 1][1] : top + span;
+      for(const [s, e] of free){ if(t <= e - s){ y = s + t; break; } t -= (e - s); }
+      l.ly = y; l.side = side; l.lx = lx;
+    });
+    for(let pass = 0; pass < 40; pass++){
+      set.forEach((l, i) => {
+        const seg = free.find(([s, e]) => l.ly >= s - .5 && l.ly <= e + .5) || [top, top + span];
+        const lo = Math.max(seg[0], i ? set[i - 1].ly + GAP : seg[0]);
+        const hi = Math.min(seg[1], i < set.length - 1 ? set[i + 1].ly - GAP : seg[1]);
+        if(hi >= lo) l.ly = Math.max(lo, Math.min(hi, l.ly + (l.ay - l.ly) * .35));
+      });
+    }
+  });
+  labels.filter(l => l.side === "R").forEach(l => {
+    const mine = dots.filter(d => d.si === l.si && hubClear(d.x, d.y) >= KEEP + 4);
+    if(!mine.length) return;
+    const pick = mine.reduce((a, b) => Math.abs(b.y - l.ly) < Math.abs(a.y - l.ly) ? b : a);
+    l.ax = pick.x; l.ay = pick.y;
+  });
+}
+function hoverSpecies(si){
+  if(SP_HOVER === si) return;
+  SP_HOVER = si;
+  if(si != null) hidePeek();
+  syncLabels(); syncStatus(); syncChips(); requestDraw();
+}
+function syncLabels(){
+  const any = SP_HOVER != null;
+  gLabels.selectAll("g.splab").classed("lit", d => any && d.si === SP_HOVER).classed("off", d => any && d.si !== SP_HOVER);
+  svgEl.classList.toggle("is-back", !any && !!OPEN);
+}
+
+/* =====================================================================
+   11. Status pill, key, note
+   ===================================================================== */
+function syncStatus(){
+  if(!statusTx) return; /* the pill was removed at Cambium's request, Oct 8 */
+  let t;
+  if(OPEN) t = `${OPEN.name} · ${plural(OPEN.mills.length, "sawmill")} · ${plural(OPEN.progs.length, "program")}`;
+  else if(SP_HOVER != null) t = `${SPECIES_RANGES[SP_HOVER].name} sources`;
+  else t = `${PARTNERS} mills and supply partners`;
+  if(statusTx.textContent === t) return;
+  statusTx.textContent = t;
+  if(!REDUCED && REVEAL_T != null) statusTx.animate([{opacity:0, transform:"translateY(6px)"}, {opacity:1, transform:"none"}], {duration:360, easing:"cubic-bezier(.22,1,.36,1)"});
+}
+/* =====================================================================
+   12. Phones: region tabs, swipeable cards, species chips
+   ===================================================================== */
+function renderRegions(){
+  const tabs = HUBS.map(h => `<button type="button" role="tab" class="net-tab glass" data-hub="${esc(h.name)}" aria-selected="${h === SEL}">${esc(h.name)} <b>${h.items.length}</b></button>`).join("");
+  const cards = SEL.items.length
+    ? SEL.items.map(p => `<article class="nc glass" data-name="${esc(p.name)}">${detailHTML(p)}</article>`).join("")
+    : `<p class="net-empty">No featured partners in this hub yet.</p>`;
+  const chips = SPECIES_RANGES.map((s, i) => `<button type="button" class="net-chip" data-si="${i}" aria-pressed="${SP_HOVER === i}">${esc(s.name)}</button>`).join("");
+  regEl.innerHTML = `<div class="net-tabs" role="tablist" aria-label="Hubs">${tabs}</div>` +
+    `<div class="net-cards" role="tabpanel" aria-label="${esc(SEL.name)} hub">${cards}</div>` +
+    `<p class="net-sub">Sources</p><div class="net-chips">${chips}</div>`;
+  regEl.querySelectorAll(".net-tab").forEach(b => b.addEventListener("click", () => selectRegion(HUBS.find(h => h.name === b.dataset.hub))));
+  regEl.querySelectorAll(".net-chip").forEach(b => b.addEventListener("click", () => {
+    const si = +b.dataset.si;
+    hoverSpecies(SP_HOVER === si ? null : si);
+  }));
+}
+function selectRegion(h){
+  if(!h) return;
+  SEL = h;
+  hoverSpecies(null);
+  if(OPEN === h){ ripple(h.cx, h.cy); } else { OPEN = null; setHub(h); }
+  renderRegions();
+}
+function syncChips(){
+  regEl.querySelectorAll(".net-chip").forEach(b => b.setAttribute("aria-pressed", +b.dataset.si === SP_HOVER ? "true" : "false"));
+}
+function flashCard(p){
+  const el = [...regEl.querySelectorAll(".nc")].find(n => n.dataset.name === p.name);
+  if(!el) return;
+  const row = el.parentElement;
+  row.scrollTo({left:el.offsetLeft - row.offsetLeft - parseFloat(getComputedStyle(row).paddingLeft), behavior:REDUCED ? "auto" : "smooth"});
+  el.classList.add("flash");
+  setTimeout(() => el.classList.remove("flash"), 1100);
+}
+
+/* =====================================================================
+   13. Tour + first reveal
+   ===================================================================== */
+const TOUR = {on:false, stopped:REDUCED, i:0, token:0};
+const wait = (ms, tok) => new Promise((res, rej) => setTimeout(() => tok === TOUR.token ? res() : rej(0), ms));
+async function runTour(){
+  if(TOUR.on || TOUR.stopped || MODE !== "full" || REVEAL_T == null) return;
+  const tok = ++TOUR.token;
+  TOUR.on = true;
+  let skipped = 0;
+  try{
+    while(skipped < TOUR_STEPS.length){
+      const s = TOUR_STEPS[TOUR.i++ % TOUR_STEPS.length];
+      if(s.hub){
+        const h = HUBS.find(x => x.name === s.hub);
+        if(!h || !h.items.length){ skipped++; continue; }
+        skipped = 0;
+        setHub(h); await wait(1200, tok);
+        const m = h.items.find(x => x.cat === "sawmill"), p = h.items.find(x => x.cat === "program");
+        if(m){ showTip(m); await wait(3600, tok); }
+        if(p){ showTip(p); await wait(3600, tok); }
+        hideTip(); setHub(null); await wait(900, tok);
+      } else {
+        const si = SPECIES_RANGES.findIndex(x => x.name === s.species);
+        if(si < 0){ skipped++; continue; }
+        skipped = 0;
+        hoverSpecies(si); await wait(2800, tok);
+        hoverSpecies(null); await wait(800, tok);
+      }
+    }
+  } catch(e){ /* cancelled */ }
+}
+function pauseTour(){
+  if(!TOUR.on) return;
+  TOUR.token++; TOUR.on = false;
+  hideTip(); setHub(null); hoverSpecies(null);
+}
+/* The first real touch hands the map over for good; whatever hub is open
+   stays open and the caller decides what happens next */
+function userTookOver(){
+  if(TOUR.stopped) return;
+  TOUR.stopped = true;
+  if(TOUR.on){ TOUR.token++; TOUR.on = false; cancelClose(); hideTip(); hoverSpecies(null); }
+}
+function reveal(){
+  if(REVEAL_T != null) return;
+  REVEAL_T = performance.now();
+  root.classList.remove("pre");
+  requestDraw();
+  setTimeout(() => root.classList.add("settled"), 2300);
+  setTimeout(() => { if(IN_VIEW) runTour(); }, REDUCED ? 0 : 2500);
+}
+
+/* =====================================================================
+   14. Wiring
+   ===================================================================== */
+stage.addEventListener("pointermove", e => {
+  if(e.pointerType !== "mouse" || MODE !== "full") return;
+  const r = stage.getBoundingClientRect();
+  PTR.x = (e.clientX - r.left) / K; PTR.y = (e.clientY - r.top) / K;
+  if(!PTR.on){ PTR.on = true; LENS.x = PTR.x; LENS.y = PTR.y; }
+  /* the trip from a hub out to one of its pins crosses empty map; stay open
+     the whole time the cursor is around the fan, close once it leaves */
+  if(OPEN && TOUR.stopped && !PINNED){
+    if(inFan(PTR.x, PTR.y)) cancelClose(); else if(!CLOSE_T) scheduleClose();
+  }
+  requestDraw();
+  schedulePeek();
+});
+stage.addEventListener("pointerleave", e => {
+  PTR.on = false; hidePeek(); requestDraw();
+  if(e.pointerType === "mouse" && OPEN && TOUR.stopped && !PINNED && MODE === "full") scheduleClose();
+});
+stage.addEventListener("click", e => {
+  userTookOver();
+  const r = stage.getBoundingClientRect();
+  ripple((e.clientX - r.left) / K, (e.clientY - r.top) / K);
+  if(MODE === "full") closeAll();
+  else hoverSpecies(null);
+});
+document.addEventListener("keydown", e => {
+  if(e.key !== "Escape" || MODE !== "full" || !(OPEN || ACTIVE || SP_HOVER != null)) return;
+  userTookOver();
+  const back = OPEN && OPEN.el;
+  closeAll();
+  if(back && root.contains(document.activeElement)) back.focus({preventScroll:true});
+});
+
+new ResizeObserver(() => { if(NATION) layout(); }).observe(stage);
+new IntersectionObserver(entries => {
+  entries.forEach(en => {
+    IN_VIEW = en.isIntersecting && en.intersectionRatio >= .35;
+    if(!NATION) return;
+    if(IN_VIEW){ if(REVEAL_T == null) reveal(); else runTour(); }
+    else pauseTour();
+  });
+}, {threshold:[0, .35, .7]}).observe(stage);
+
+fetch("https://cdn.jsdelivr.net/npm/us-atlas@3.0.1/states-10m.json")
+  .then(r => r.json())
+  .then(us => {
+    const regionIdx = {};
+    HUBS.forEach((h, i) => REGION_STATES[h.name].split(" ").forEach(id => { regionIdx[id] = i; }));
+    const geoms = us.objects.states.geometries.filter(g => g.id in regionIdx);
+    STATES = topojson.feature(us, {type:"GeometryCollection", geometries:geoms}).features;
+    STATES.forEach(f => { f.reg = regionIdx[f.id]; });
+    NATION = {type:"Feature", properties:{}, geometry:topojson.merge(us, geoms)};
+    layout(true);
+    if(IN_VIEW) reveal();
+  })
+  .catch(err => {
+    console.error("Network map failed to load", err);
+    stage.insertAdjacentHTML("beforeend", `<p class="net-fallback">The network map could not load.</p>`);
+  });
+})();
+</script>
+
+</body>
+</html>

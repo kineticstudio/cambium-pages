@@ -1,0 +1,206 @@
+/* Cambium supply network map. Generated from the Studio design
+   (clients/cambium/designs/03-Sawmills-Page-V3.html); do not edit by hand. */
+.cb-net{
+  --orange:#d65b19; --orange-dark:#af4111; --orange-mid:#f4ab8c; --orange-light:#f6dbd0;
+  --brown-dark:#261107; --brown:#412a20; --brown-mid:#634c43; --brown-light:#a08a7c;
+  --cream:#fffcf6; --cream-mid:#faf2e6; --cream-dark:#e3d5c5;
+  --blue:#b9e4f8; --blue-light:#f5fcff; --blue-mid:#dbf3ff; --blue-dark:#99cfea;
+  --brown-o10:rgba(65,42,32,.1); --brown-o30:rgba(65,42,32,.3); --brown-o70:rgba(65,42,32,.7);
+  --cream-o10:rgba(255,252,246,.1); --cream-o30:rgba(255,252,246,.3); --cream-o70:rgba(255,252,246,.7);
+
+  --font-sans:"Abc Social",Arial,sans-serif;
+  --font-mono:"Abc Social Mono",Arial,sans-serif;
+
+  --fs-display:clamp(3rem,2.5917rem + 2.0414vw,5.858rem);
+  --fs-h1:clamp(2.5rem,2.2959rem + 1.0207vw,3.929rem);
+  --fs-h2:clamp(2rem,1.8981rem + .5093vw,2.713rem);
+  --fs-h3:clamp(1.25rem,1.1989rem + .2557vw,1.608rem);
+  --fs-h4:clamp(1rem,.9489rem + .2557vw,1.358rem);
+  --fs-h5:1rem; --fs-h6:.75rem;
+  --fs-main:1.125rem; --fs-large:1.5rem; --fs-small:.875rem;
+  --lh-s:1.05; --lh-m:1.2; --lh-l:1.35; --lh-xl:1.4;
+  --ls-tightest:-.04em; --ls-tighter:-.02em; --ls-tight:-.01em; --ls-wide:.04em;
+
+  --space-0-5:clamp(.375rem,.3494rem + .1279vw,.554rem);
+  --space-0-75:clamp(.625rem,.5994rem + .1279vw,.804rem);
+  --space-1:clamp(.875rem,.8494rem + .1279vw,1.054rem);
+  --space-1-5:clamp(1.25rem,1.1989rem + .2557vw,1.608rem);
+  --space-2:clamp(1.75rem,1.6989rem + .2557vw,2.108rem);
+  --space-2-5:clamp(2.25rem,2.1989rem + .2557vw,2.608rem);
+  --space-3:clamp(2.5rem,2.3981rem + .5093vw,3.213rem);
+  --space-4:clamp(3rem,2.7959rem + 1.0207vw,4.429rem);
+  --space-5:clamp(3.5rem,3.194rem + 1.53vw,5.642rem);
+  --section-small:clamp(2.5rem,2.3981rem + .5093vw,3.213rem);
+  --section-main:clamp(3rem,2.3876rem + 3.0621vw,7.287rem);
+  --section-large:clamp(4.5rem,3.5816rem + 4.5921vw,10.929rem);
+  --page-top:clamp(8rem,7.1839rem + 4.0807vw,13.713rem);
+  --margin:clamp(1rem,.8981rem + .5093vw,1.713rem);
+  --gutter:clamp(1rem,.8981rem + .5093vw,1.713rem);
+  --nav-h:clamp(3.5rem,3.2959rem + 1.0207vw,4.929rem);
+  --btn-h:clamp(3rem,2.8929rem + .5357vw,3.75rem);
+  --radius-sm:.375rem; --radius:.75rem; --radius-round:100vw;
+  --ease:cubic-bezier(.38,.005,.215,1);
+}
+
+.cb-net .sr-only{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0}
+.cb-net{position:relative;color:var(--cream);font-family:var(--font-sans);-webkit-font-smoothing:antialiased}
+.cb-net *,.cb-net *::before,.cb-net *::after{box-sizing:border-box}
+/* =====================================================================
+   NEW: National supply network
+   A dot-matrix map on the section itself, no frame. Glass UI borrows
+   the homepage hero tooltips 1:1.
+   ===================================================================== */
+.cb-net .net-section{--ease-out:cubic-bezier(.22,1,.36,1);background:var(--brown-dark);color:var(--cream);padding:var(--section-main) 0;overflow:hidden}
+.net-head{align-items:end;row-gap:var(--space-2);margin-bottom:var(--space-3)}
+.net-head__main{grid-column:1/span 8}
+.net-head__main .eyebrow{color:var(--orange);margin-bottom:var(--space-1-5)}
+.net-head__main h2{max-width:17em;text-wrap:balance}
+.net-head__side{grid-column:9/span 4}
+.net-head__side p{color:var(--cream-o70);margin-bottom:var(--space-2)}
+@media (max-width:991px){.net-head__main,.net-head__side{grid-column:1/-1}}
+
+.net-map{position:relative;container-type:inline-size}
+.net-stage{position:relative;container-type:inline-size;width:100%;max-width:min(100%,150vh);aspect-ratio:960/520;margin:0 auto;
+  -webkit-user-select:none;user-select:none;-webkit-tap-highlight-color:transparent;touch-action:manipulation}
+.net-dots,.net-svg,.net-layer{position:absolute;inset:0;width:100%;height:100%;display:block}
+.net-svg{overflow:visible;pointer-events:none}
+.net-layer{pointer-events:none}
+.net-layer>*{pointer-events:auto}
+.net-fallback{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;color:var(--cream-o70);font-size:var(--fs-small)}
+
+/* Glass: the homepage hero tooltip */
+.glass{background:rgba(255,255,255,.08);-webkit-backdrop-filter:blur(12px) saturate(1.4);backdrop-filter:blur(12px) saturate(1.4);
+  box-shadow:-13px 15px 40px rgba(0,0,0,.25);border-radius:var(--radius);color:#fff}
+.glass::before,.glass::after{content:"";position:absolute;inset:0;border-radius:inherit;pointer-events:none}
+.glass::before{box-shadow:inset 0 1px .5px rgba(255,255,255,.55),inset 0 3px 8px -4px rgba(255,255,255,.45)}
+.glass::after{box-shadow:inset 0 -1px .5px rgba(255,255,255,.18)}
+@keyframes glass-float{0%,100%{translate:0 0}50%{translate:0 -5px}}
+@keyframes net-spin{to{transform:rotate(360deg)}}
+
+/* Status pill (the "Evaluating 380+ sources" pill from the homepage) */
+.net-status{position:absolute;left:0;top:0;z-index:8;display:flex;align-items:center;gap:var(--space-0-75);min-height:var(--space-2-5);
+  padding:var(--space-0-75) var(--space-1);font-family:var(--font-mono);font-weight:500;font-size:clamp(.75rem,1.05cqw,1rem);line-height:1.2;
+  letter-spacing:var(--ls-wide);text-transform:uppercase;white-space:nowrap;animation:glass-float 4s ease-in-out infinite;
+  transition:opacity .6s var(--ease) .2s}
+.net-status svg{flex:none;width:1.45em;height:1.45em;animation:net-spin 1s linear infinite}
+
+/* Regional hubs: glass pills sitting on the map */
+.hub{position:absolute;left:var(--x);top:var(--y);z-index:4;translate:-50% -50%;display:flex;align-items:center;gap:.6em;
+  padding:.45em 1em .45em .45em;border:0;cursor:pointer;font-family:var(--font-mono);font-weight:500;font-size:clamp(.6875rem,.95cqw,.875rem);
+  line-height:1;letter-spacing:.06em;text-transform:uppercase;box-shadow:-10px 12px 30px rgba(0,0,0,.35);
+  transition:background-color .3s var(--ease),opacity .35s var(--ease),scale .7s cubic-bezier(.34,1.56,.64,1) var(--d,0s)}
+.hub__mark{position:relative;display:grid;place-items:center;width:2.1em;height:2.1em;border-radius:50%;background:var(--blue);color:var(--brown);
+  transition:background-color .3s var(--ease),color .3s var(--ease)}
+.hub__mark svg{width:1.3em;height:1.3em;fill:none;stroke:currentColor;stroke-width:1.7;stroke-linecap:round;stroke-linejoin:round}
+.hub__mark::after{content:"";position:absolute;inset:0;border-radius:50%;border:1px solid var(--blue);opacity:0;
+  animation:hub-pulse 3s var(--ease) infinite;animation-delay:calc(var(--i) * .75s)}
+@keyframes hub-pulse{0%{transform:scale(1);opacity:.85}70%,100%{transform:scale(2.5);opacity:0}}
+.hub:hover{background:rgba(255,255,255,.16)}
+.hub[aria-expanded="true"]{background:var(--orange)}
+.hub[aria-expanded="true"] .hub__mark{background:var(--cream);color:var(--orange)}
+.net-layer.has-open .hub:not([aria-expanded="true"]){opacity:.4}
+.net-layer.has-open .hub__mark::after{animation:none}
+.hub:focus-visible{outline:2px solid var(--cream);outline-offset:3px}
+.net-map.pre .hub{opacity:0;scale:.5}
+.net-map.is-compact .hub{padding:.3em;gap:0;font-size:.6875rem;border-radius:50%}
+.net-map.is-compact .hub__name{position:absolute;left:50%;top:calc(100% + .45em);translate:-50% 0;font-size:.5625rem;letter-spacing:.08em;color:var(--cream-o70);transition:opacity .2s}
+.net-map.is-compact .hub[aria-expanded="true"] .hub__name{opacity:0}
+
+/* Sawmills + programs */
+.pin{--dl:0s;position:absolute;left:var(--x);top:var(--y);z-index:3;translate:-50% -50%;display:grid;place-items:center;
+  width:clamp(1.5rem,2.35cqw,2.125rem);aspect-ratio:1;padding:0;border:0;border-radius:50%;cursor:pointer;
+  background:var(--cream);color:var(--brown-mid);box-shadow:0 8px 18px -8px rgba(0,0,0,.8);
+  transition:left .6s var(--ease-out) var(--dl),top .6s var(--ease-out) var(--dl),opacity .35s var(--ease) var(--dl),
+    scale .35s cubic-bezier(.34,1.56,.64,1),background-color .2s var(--ease),color .2s var(--ease)}
+.pin--program{color:var(--brown-dark)}
+.pin svg{width:56%;height:56%;fill:none;stroke:currentColor;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
+.pin:hover,.pin.is-active{background:var(--orange);color:var(--cream);scale:1.15}
+.pin.is-dim{opacity:.32}
+.pin.is-out,.pin.is-gone{opacity:0;scale:.4;pointer-events:none}
+.pin.is-gone{--dl:0s}
+.pin:focus-visible{outline:2px solid var(--cream);outline-offset:3px}
+
+/* Spokes + connectors: a faint line plus a pulse of light moving along it.
+   Sawmill spokes flow into the hub, program spokes flow out to the program. */
+.ln-base{fill:none;stroke:#fffcf6;stroke-opacity:.2;stroke-width:1;vector-effect:non-scaling-stroke;stroke-dasharray:100;stroke-dashoffset:100;
+  transition:stroke-dashoffset .6s var(--ease-out)}
+.ln-flow{fill:none;stroke:#fffcf6;stroke-opacity:.9;stroke-width:1.6;vector-effect:non-scaling-stroke;stroke-linecap:round;stroke-dasharray:8 92;
+  opacity:0;transition:opacity .3s var(--ease)}
+.is-in>.ln-base{stroke-dashoffset:0}
+.is-in>.ln-flow{opacity:1;transition-delay:.45s}
+.spoke--sawmill .ln-flow{animation:flow-in 2.4s linear infinite;animation-delay:var(--fd,0s)}
+.spoke--program .ln-flow,.conn .ln-flow{animation:flow-out 2.4s linear infinite;animation-delay:var(--fd,0s)}
+.conn .ln-flow{animation-duration:1.6s}
+.spoke{transition:opacity .25s var(--ease)}
+.spoke.is-dim{opacity:.25}
+.is-gone>.ln-base{stroke-dashoffset:100;transition-duration:.4s}
+.is-gone>.ln-flow{opacity:0;transition-delay:0s}
+@keyframes flow-out{from{stroke-dashoffset:100}to{stroke-dashoffset:0}}
+@keyframes flow-in{from{stroke-dashoffset:0}to{stroke-dashoffset:100}}
+
+/* Species names, field-guide style in the margins */
+.splab{pointer-events:all;cursor:pointer;transition:opacity .5s var(--ease) var(--d,0s)}
+.splab text{font-family:var(--font-mono);font-weight:500;font-size:9.5px;letter-spacing:.07em;text-transform:uppercase;fill:rgba(255,252,246,.62);transition:fill .2s var(--ease)}
+.splab .ldr{fill:none;stroke:rgba(255,252,246,.16);stroke-width:.7;transition:stroke .2s var(--ease)}
+.splab .anch{fill:var(--blue)}
+.splab .hit{fill:transparent}
+.splab:hover text,.splab.lit text{fill:var(--orange)}
+.splab.lit .ldr{stroke:var(--orange)}
+.splab.lit .anch{fill:var(--orange)}
+.splab.off{opacity:.2}
+.net-svg.is-back .splab{opacity:0;pointer-events:none}
+.net-map.pre .splab,.net-map.pre .net-status{opacity:0}
+.net-map.settled .splab,.net-map.settled .hub{--d:0s !important}
+
+/* Detail tooltip: homepage hero tooltip with a checklist */
+.net-tip{position:absolute;left:0;top:0;z-index:9;display:flex;flex-direction:column;gap:var(--space-1);width:max-content;min-width:15rem;max-width:19rem;
+  padding:var(--space-1);pointer-events:none;opacity:0;visibility:hidden;translate:0 6px;
+  transition:opacity .25s var(--ease),translate .45s var(--ease),visibility 0s linear .25s}
+.net-tip.is-shown{opacity:1;visibility:visible;translate:0 0;transition:opacity .25s var(--ease),translate .45s var(--ease),visibility 0s;
+  animation:glass-float 4s ease-in-out .5s infinite}
+.tip-title{display:flex;align-items:center;gap:.6em;margin:0;font-family:var(--font-mono);font-weight:500;font-size:var(--fs-h5);line-height:1.2;letter-spacing:var(--ls-wide);text-transform:uppercase}
+.tip-title svg{flex:none;width:1.2em;height:1.2em;fill:none;stroke:var(--blue);stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
+.checks{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:.85em}
+.checks li{padding-left:1.35em;font-size:var(--fs-small);line-height:1.3;letter-spacing:var(--ls-tight);
+  background:url("https://cdn.prod.website-files.com/6a0d7934c77e30ed0675626d/6a4f1ab6d8ef379fa41d9fcd_check.svg") no-repeat 0 .22em/.875em auto}
+.checks li.is-no{background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 10 10'%3E%3Ccircle cx='5' cy='5' r='3.1' fill='none' stroke='%23A08A7C' stroke-width='1.3'/%3E%3C/svg%3E");color:rgba(255,255,255,.7)}
+.net-tip .checks li{opacity:0;translate:-4px 0;transition:opacity .3s var(--ease),translate .45s var(--ease)}
+.net-tip.is-shown .checks li{opacity:1;translate:0 0}
+.net-tip.is-shown .checks li:nth-child(2){transition-delay:.06s}
+.net-tip.is-shown .checks li:nth-child(3){transition-delay:.12s}
+.net-tip.is-shown .checks li:nth-child(4){transition-delay:.18s}
+
+/* Species under the cursor */
+.net-peek{position:absolute;left:0;top:0;z-index:7;padding:.55em .8em;font-family:var(--font-mono);font-weight:500;font-size:.6875rem;line-height:1.1;
+  letter-spacing:.06em;text-transform:uppercase;white-space:nowrap;pointer-events:none;opacity:0;transition:opacity .2s var(--ease)}
+.net-peek.is-shown{opacity:1}
+
+/* Phones: region tabs + swipeable glass cards under the map */
+.net-regions{display:none}
+.net-map.is-compact .net-status{position:relative;display:inline-flex;margin-bottom:var(--space-1)}
+.net-map.is-compact .net-regions{display:block;margin-top:var(--space-1-5)}
+.net-tabs{display:flex;gap:.4rem;overflow-x:auto;scrollbar-width:none;margin:0 calc(var(--margin) * -1) var(--space-1);padding:.25rem var(--margin)}
+.net-tabs::-webkit-scrollbar{display:none}
+.net-tab{flex:none;display:flex;align-items:center;gap:.45rem;min-height:2.75rem;padding:0 1rem;border:0;border-radius:var(--radius);cursor:pointer;position:relative;
+  font-family:var(--font-mono);font-weight:500;font-size:.75rem;letter-spacing:var(--ls-wide);text-transform:uppercase;color:#fff;transition:background-color .25s var(--ease)}
+.net-tab b{font-weight:500;color:rgba(255,255,255,.6)}
+.net-tab[aria-selected="true"]{background:var(--orange)}
+.net-tab[aria-selected="true"] b{color:var(--cream)}
+.net-cards{display:flex;align-items:flex-start;gap:.6rem;overflow-x:auto;scroll-snap-type:x mandatory;scrollbar-width:none;margin:0 calc(var(--margin) * -1);padding:.25rem var(--margin) 1.25rem;scroll-padding:0 var(--margin)}
+.net-cards::-webkit-scrollbar{display:none}
+.nc{position:relative;flex:0 0 min(80%,17.5rem);scroll-snap-align:start;display:flex;flex-direction:column;gap:var(--space-1);padding:var(--space-1);
+  box-shadow:-8px 10px 26px rgba(0,0,0,.3);transition:background-color .3s var(--ease)}
+.nc.flash{background:rgba(214,91,25,.28)}
+.net-empty{color:var(--cream-o70);font-size:var(--fs-small);padding:.25rem 0 1rem}
+.net-sub{margin:var(--space-0-75) 0 .6rem;font-family:var(--font-mono);font-weight:500;font-size:.6875rem;letter-spacing:.07em;text-transform:uppercase;color:var(--brown-light)}
+.net-chips{display:flex;gap:.35rem;overflow-x:auto;scrollbar-width:none;margin:0 calc(var(--margin) * -1);padding:0 var(--margin) .25rem}
+.net-chips::-webkit-scrollbar{display:none}
+.net-chip{flex:none}
+.net-chip{min-height:2.25rem;padding:0 .75rem;border:1px solid var(--cream-o10);border-radius:var(--radius);background:transparent;cursor:pointer;
+  font-family:var(--font-mono);font-weight:500;font-size:.6875rem;letter-spacing:.05em;text-transform:uppercase;color:var(--cream-o70);
+  transition:border-color .2s var(--ease),color .2s var(--ease)}
+.net-chip[aria-pressed="true"]{border-color:var(--orange);color:var(--orange)}
+
+@media (prefers-reduced-motion:reduce){
+  *,*::before,*::after{transition-duration:.01ms !important;animation:none !important}
+}

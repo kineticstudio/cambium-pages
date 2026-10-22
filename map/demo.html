@@ -1,0 +1,84 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Supply network map: embed test</title>
+<style>
+@font-face{font-family:"Abc Social";src:url("https://cdn.prod.website-files.com/6a0d7934c77e30ed0675626d/6a0d9233617b874fbda74361_ABCSocial-Regular.woff2") format("woff2");font-weight:400}
+@font-face{font-family:"Abc Social Mono";src:url("https://cdn.prod.website-files.com/6a0d7934c77e30ed0675626d/6a0d923bc270267cafea8968_ABCSocialMono-Medium.woff2") format("woff2");font-weight:500}
+body{margin:0;background:#261107;padding:6vw 4vw}
+</style>
+</head>
+<body>
+<!-- Cambium supply network map. Paste into a Webflow Embed inside the
+     map section (dark background, below the Join / Log in heading). -->
+<link rel="stylesheet" href="./network.css">
+<div class="cb-net">
+<div class="net-map pre" id="net-map">
+      <div class="net-stage" id="net-stage">
+        <canvas class="net-dots" id="net-dots" aria-hidden="true"></canvas>
+        <svg class="net-svg" id="net-svg" viewBox="0 0 960 520" aria-hidden="true"></svg>
+        <div class="net-layer" id="net-layer" role="group" aria-label="Regional hubs"></div>
+        <div class="net-tip glass" id="net-tip" aria-hidden="true"></div>
+        <div class="net-peek glass" id="net-peek" aria-hidden="true"></div>
+      </div>
+      <div class="net-regions" id="net-regions"></div>
+      <div class="sr-only" id="net-sr"></div>
+</div>
+</div>
+<script>
+/* The rows: paste each Display tab of the "Supplier Landing Page Data"
+   sheet between its backticks (header row included). Only the Display
+   tabs, never the Raw tabs. */
+window.CAMBIUM_NETWORK = {
+sawmills: `
+Number | Display Name | Region | Cambium Status | Program Status | Capacity Status | Species
+01 | Southern Preferred Mill | South | Preferred | Active | Available | White Pine, Red Oak, White Oak, Poplar
+02 | Southern Preferred Mill | South | Preferred | Active | Available | Southern Yellow Pine, Ash, Red Oak, White Oak, Poplar, Hickory, Maple, Cypress
+03 | Midwestern Preferred Mill | Midwest | Preferred | Active | Available | TBD
+04 | Northeastern Preferred Mill | Northeast | Preferred | Active | Available | Ash, Basswood, Beech, Cherry, Hickory, Poplar, Red Oak, Soft Maple, Walnut, White Oak
+05 | Western Preferred Mill | West | Preferred | Active | Available | Douglas Fir, Western Red Cedar, Hemlock, Alaska Yellow Cedar, Southern Yellow Pine, Oregon White Oak, Maple, Tanoak, Madrone, Chinquapin, Myrtle, Oregon Ash
+06 | Western Qualified Mill | West | Qualified | Active | Full | Ponderosa Pine, Douglas Fir, Western Red Cedar, Incense Cedar, Hemlock, Western Juniper
+07 | Western Qualified Mill | West | Qualified | Active | Full | Orchard Walnut, Almond
+08 | Northeastern Qualified Mill | Northeast | Qualified | Active | Available | Poplar, White Oak, Red Oak, Hickory
+09 | Northeastern Qualified Mill | Northeast | Qualified | Active | Full | White Oak
+10 | Western Qualified Mill | West | Qualified | Validation | Available | Hemlock, White Fir
+11 | Midwestern Qualified Mill | Midwest | Qualified | Active | Available | SPF-S, Eastern White Pine
+12 | Midwestern Qualified Mill | Midwest | Qualified | Active | Available | SPF-S, Eastern White Pine
+13 | Western Qualified Mill | West | Qualified | Active | Available | Ponderosa Pine, Aspen
+14 | Midwestern Qualified Mill | Midwest | Qualified | Active | Available | White Oak, Ash, Elm, Black Walnut
+`,
+programs: `
+Number | Display Name | Region | Species | Annual BF | Program Type | Program Status
+01 | Furniture Program | Northeast | Thermal Oak | 44,380 | Recurring | Active
+02 | Furniture Program | West | English Walnut | 30,000 | Recurring | Active
+03 | Furniture Program | Midwest | Red Oak | 25,000 | Recurring | Active
+04 | Furniture Program | West | Doug Fir | 25,000 | Recurring | Active
+05 | Furniture Program | West | English Walnut | 2,000 | Recurring | Active
+06 | Sauna Program | Northeast | Thermal Poplar | 15,000 | Recurring | Active
+07 | Sauna Program | Midwest | Thermal Ash | 10,000 | Recurring | Active
+08 | CSW Millwork Program | West | Silky Cedar | 30,000 | Recurring | Active
+09 | CSW Millwork Program | Northeast | Thermal Oak | 50,000 | Recurring | Active
+10 | Finished Goods Program | Northeast | Poplar | 480,000 | Recurring | Active
+11 | Furniture Program | Northeast | White Oak | 5,000 | Recurring | Active
+12 | Furniture Program | Northeast | White Oak | 5,000 | Recurring | Active
+13 | Mass Timber Stock Program | South | Southern Yellow Pine | 100,000 | Recurring | Active
+14 | Countertop Program | West | Alder, Oregon White Oak | 5,000 | Recurring | Active
+15 | CSW Millwork Program | West | Hemlock, White Fir | 5,000 | Recurring | Active
+16 | CSW Finished Goods Program | West | Western Red Cedar | 5,000 | Recurring | Active
+17 | Mass Timber Stock Program | West | Ponderosa Pine | 40,000 | Recurring | Testing
+18 | Mass Timber Stock Program | West | Aspen | 40,000 | Recurring | Testing
+19 | CSW Millwork Program | Midwest | White Oak, Ash | 30,000 | Recurring | Active
+20 | CSW Millwork Program | Midwest | White Oak, Ash, Elm, Maple | 50,000 | Recurring | Active
+21 | Millwork Program | Midwest | White Oak, Ash | 60,000 | Recurring | Active
+22 | Furniture Program | Midwest | Cherry, White Oak, Red Oak, Ash, WalNOT, Maple | 20,000 | Recurring | Active
+`
+};
+</script>
+<script src="https://unpkg.com/d3@7.9.0/dist/d3.min.js" integrity="sha384-CjloA8y00+1SDAUkjs099PVfnY2KmDC2BZnws9kh8D/lX1s46w6EPhpXdqMfjK6i" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/topojson-client@3.1.0/dist/topojson-client.min.js" integrity="sha384-Ukv1p/xTma6P4/2bY5KzWBw+ydSpXmhCMtyciIQVDJ1RmOxtCYNMF1uXT9T63H67" crossorigin="anonymous"></script>
+<script src="./network.js"></script>
+
+</body>
+</html>
